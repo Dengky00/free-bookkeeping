@@ -29,10 +29,8 @@
         font-size: 24px;
         color: var(--welcome-text);
 
-        >a {
-            &:nth-child(1) {
-                visibility: hidden;
-            }
+        .fake {
+            visibility: hidden;
         }
     }
 }

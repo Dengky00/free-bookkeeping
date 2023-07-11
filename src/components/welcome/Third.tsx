@@ -1,22 +1,19 @@
-import { defineComponent } from 'vue';
-import style from './First.module.scss'
-import chart from '../../assets/icons/chart.svg'
 import { RouterLink } from 'vue-router';
+import { WelcomeLayout } from './WelcomeLayout';
+import style from './WelcomeLayout.module.scss'
+import chart from '../../assets/icons/chart.svg'
 
-export const Third = defineComponent({
-    setup: () => {
-        return () => (
-            <div class={style.wrapper}>
-                <div class={style.card}>
-                    <img src={chart} />
-                    <h2>会挣钱<br />还要会省钱</h2>
-                </div>
-                <div class={style.actions}>
-                    <RouterLink class={style.fake} to="">跳过</RouterLink>
-                    <RouterLink to="/welcome/4">下一页</RouterLink>
-                    <RouterLink to="/start">跳过</RouterLink>
-                </div>
-            </div>
-        )
-    }
-})
+export const Third = () => (
+    <WelcomeLayout>
+        {{
+            icon: () => <img src={chart} />,
+            title: () => <h2>数据可视化<br />收支一目了然</h2>,
+            buttons: () => <>
+                <RouterLink class={style.fake} to="">跳过</RouterLink>
+                <RouterLink to="/welcome/4">下一页</RouterLink>
+                <RouterLink to="/start">跳过</RouterLink>
+            </>
+        }}
+    </WelcomeLayout>
+)
+Third.displayName = 'Third'

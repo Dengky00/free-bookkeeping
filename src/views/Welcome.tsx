@@ -4,7 +4,7 @@ import style from './Welcome.module.scss';
 import logo from '../assets/icons/bird.svg'
 
 export const Welcome = defineComponent({
-    setup: (props, context) => {
+    setup: () => {
         return () => <div class={style.wrapper}>
             <header>
                 <img src={logo}/>

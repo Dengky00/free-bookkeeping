@@ -4,7 +4,7 @@ import money from '../../assets/icons/money.svg'
 import { RouterLink } from 'vue-router';
 
 export const First = defineComponent({
-    setup: (props, context) => {
+    setup: () => {
         return () => (
             <div class={style.wrapper}>
                 <div class={style.card}>

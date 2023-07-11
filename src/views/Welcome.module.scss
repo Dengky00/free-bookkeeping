@@ -2,17 +2,24 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    >header{
+    background: linear-gradient(to bottom, #1378d6 0%, #5ec4e6 100%);
+
+    >header {
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding-top: 60px;
+        color: #D4d4EE;
+
+        >img {
+            width: 70px;
+        }
     }
-    >mian{
+
+    >main {
         flex-grow: 1;
-    }
-    >footer{
-        flex-shrink: 0;
+        display: flex;
     }
 }

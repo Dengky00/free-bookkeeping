@@ -1,19 +1,10 @@
-import { RouterLink } from 'vue-router';
-import { WelcomeLayout } from './WelcomeLayout';
-import style from './WelcomeLayout.module.scss'
+import style from './welcome.module.scss';
 import remind from '../../assets/icons/remind.svg'
 
 export const Second = () => (
-    <WelcomeLayout>
-        {{
-            icon: () => <img src={remind} />,
-            title: () => <h2>每日提醒<br />不遗漏每一笔账单</h2>,
-            buttons: () => <>
-                <RouterLink class={style.fake} to="">跳过</RouterLink>
-                <RouterLink to="/welcome/3">下一页</RouterLink>
-                <RouterLink to="/start">跳过</RouterLink>
-            </>
-        }}
-    </WelcomeLayout>
+    <div class={style.card}>
+        <img src={remind} />
+        <h2>每日提醒<br />不遗漏每一笔账单</h2>
+    </div>
 )
 Second.displayName = 'Second'

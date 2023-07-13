@@ -22,4 +22,8 @@
         flex-grow: 1;
         display: flex;
     }
+
+    >footer {
+        flex-shrink: 0;
+    }
 }

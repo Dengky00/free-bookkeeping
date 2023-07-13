@@ -7,7 +7,6 @@
   text-align: center;
   background: var(--welcome-card-bg);
   border-radius: 8px;
-  margin: 16px 16px 0 16px;
 
   >img {
     width: 200px;
@@ -18,9 +17,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 24px 16px;
   font-size: 24px;
   color: var(--welcome-text);
+  padding: 24px 16px;
 
   .fake {
     visibility: hidden;

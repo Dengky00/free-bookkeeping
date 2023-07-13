@@ -21,9 +21,31 @@
     >main {
         flex-grow: 1;
         display: flex;
+        margin: 16px 16px 0 16px;
+        position: relative;
     }
 
     >footer {
         flex-shrink: 0;
     }
+}
+
+.enterActive,
+.leaveActive {
+    transition: all .5s;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.enterFrom {
+    transform: translateX(100vw);
+    opacity: 0;
+}
+
+.leaveTo {
+    transform: translateX(-100vw);
+    opacity: 0;
 }

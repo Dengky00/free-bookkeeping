@@ -1,11 +1,17 @@
+import { defineComponent, ref, watchEffect } from 'vue';
 import style from './welcome.module.scss';
+import { useSwipe } from '../../hooks/useSwipe';
+import { useRouter } from 'vue-router';
 
-export const Third = () =>
-    <div class={style.card}>
-        <svg>
-            <use xlinkHref='#chart'></use>
-        </svg>
-        <h2>数据可视化<br />收支一目了然</h2>
-    </div>
-
-Third.displayName = 'Third'
+export const Third = defineComponent({
+    setup: () => {
+        return () => (
+            <div class={style.card}>
+                <svg>
+                    <use xlinkHref='#chart'></use>
+                </svg>
+                <h2>数据可视化<br />收支一目了然</h2>
+            </div>
+        )
+    }
+})

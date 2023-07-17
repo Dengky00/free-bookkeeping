@@ -1,14 +1,15 @@
 :root {
-    --welcome-bg-start: #1378d6;
-    --welcome-bg-end: #5ec4e6;
+    --welcome-bg-start: #4169E1;
+    --welcome-bg-end: #00BFFF;
     --welcome-card-bg: white;
     --welcome-text: white;
     --z-index-bottom-nav: 10;
-    --button-bg: #0966bc;
+    --button-bg: #1E90FF;
     --button-text: white;
     --float-button-text: white;
     --float-button-bg: var(--button-bg);
     --navbar-bg-start: var(--welcome-bg-start);
     --navbar-bg-end: var(--welcome-bg-end);
     --navbar-text: white;
+    --sign-text: white;
 }

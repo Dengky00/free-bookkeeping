@@ -7,7 +7,7 @@ interface Props {//告诉typescript可接受的外部属性声明,通过代码�
 export const Button = defineComponent<Props>({
     setup: (props, context) => {
         return () => (
-            <button class={style}>
+            <button class={style.button}>
                 {context.slots.default?.()}
             </button>
         )

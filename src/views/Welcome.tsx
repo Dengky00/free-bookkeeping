@@ -3,7 +3,9 @@ import { RouterView, useRoute, useRouter } from 'vue-router';
 import style from './Welcome.module.scss';
 import { useSwipe } from '../hooks/useSwipe';
 import { throttle } from '../shared/throttle';
+import { Icon } from '../shared/Icon';
 
+//不加Record<string, string>ts代码检查会报错,因为route.name的值可能不是四个key之一
 const pushMap: Record<string, string> = {
     'Welcome1': '/welcome/2',
     'Welcome2': '/welcome/3',
@@ -29,9 +31,7 @@ export const Welcome = defineComponent({
         return () => (
             <div class={style.wrapper}>
                 <header>
-                    <svg>
-                        <use xlinkHref='#bird'></use>
-                    </svg>
+                    <Icon name='bird' class={style.icon} />
                     <h1>自由记账</h1>
                 </header>
                 <main ref={main}>

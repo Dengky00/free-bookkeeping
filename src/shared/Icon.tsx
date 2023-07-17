@@ -1,9 +1,5 @@
 import { PropType, defineComponent } from 'vue';
-import style from './Icon.module.scss';
 
-// interface Props {
-//     name: string
-// }
 export const Icon = defineComponent({
     props: {
         name: {
@@ -12,7 +8,7 @@ export const Icon = defineComponent({
     },
     setup: (props) => {
         return () => (
-            <svg class={style}>
+            <svg>
                 <use xlinkHref={'#' + props.name}></use>
             </svg>
         )

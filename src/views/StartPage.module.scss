@@ -1,0 +1,28 @@
+.start {
+    .icon {
+        height: 200px;
+
+        &_wrapper {
+            padding: 160px 0;
+        }
+    }
+
+    .button {
+        width: 100%;
+
+        &_wrapper {
+            padding: 16px;
+        }
+    }
+}
+
+.enterFrom,
+.leaveTo {
+    transform: translateX(calc(100% - 100px));
+    opacity: 0;
+}
+
+.enterActive,
+.leaveActive {
+    transition: all .5s;
+}

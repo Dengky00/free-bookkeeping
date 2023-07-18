@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 export const FourthActions = () =>
   <div class={style.actions}>
     <RouterLink class={style.fake} to="/start" >跳过</RouterLink>
-    <RouterLink to="/start" >开始记账</RouterLink>
+    <RouterLink to="/start" >进入应用</RouterLink>
     <RouterLink class={style.fake} to="/start" >跳过</RouterLink>
   </div>
 

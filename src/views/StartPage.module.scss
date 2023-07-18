@@ -1,4 +1,4 @@
-.start {
+.wrapper {
     .icon {
         height: 200px;
 
@@ -18,7 +18,7 @@
 
 .enterFrom,
 .leaveTo {
-    transform: translateX(calc(100% - 100px));
+    transform: translateX(calc(100%));
     opacity: 0;
 }
 

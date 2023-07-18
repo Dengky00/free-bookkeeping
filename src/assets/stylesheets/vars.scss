@@ -13,3 +13,11 @@
     --navbar-text: white;
     --sign-text: white;
 }
+
+%outerShadow {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+%innerShadow {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+}

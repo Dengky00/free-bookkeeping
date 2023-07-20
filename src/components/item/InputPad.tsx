@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, onMounted, PropType, ref } from 'vue';
 import style from './InputPad.module.scss';
 import { Icon } from '../../shared/Icon';
 import dayjs from 'dayjs'
@@ -20,6 +20,38 @@ export const InputPad = defineComponent({
         const refDatePickerVisible = ref(false)
         const showDatePicker = () => refDatePickerVisible.value = true
         const hideDatePicker = () => refDatePickerVisible.value = false
+        const inputContent = (e: Event) => {
+            //记账输入方法
+            const button = e.target as HTMLButtonElement;
+            const input = button.textContent!;
+            if (button.id === "delete" || button.nodeName === "svg") {//删除按钮
+                refAmount.value = refAmount.value.slice(0, -1);
+            } else if (button.id === "ok") {//ok提交按钮
+                // if (refAmount.value && refAmount.value !== "0" && refAmount.value !== "0.") {
+                //     this.$emit("update:amount", refAmount.value);
+                //     refAmount.value = "";
+                // }
+            } else {
+                if (refAmount.value === "" && input === ".") { return; }
+                if (refAmount.value.indexOf(".") >= 0 && input === ".") { return; }
+                if (refAmount.value === "0") {
+                    if (input === ".") { refAmount.value += input; }
+                    else { refAmount.value = input; }
+                } else {
+                    if ((/^\d{0,8}(\.\d{0,2})?$/).test(refAmount.value + input)) {//整数最多8位，小数最多2位
+                        refAmount.value += input;
+                    }
+                }
+            }
+        }
+        onMounted(() => {
+            const numPad = document.querySelectorAll(".buttons>button");
+            numPad.forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    inputContent(e);
+                });
+            });
+        })
 
         return () => (
             <div class={style.numberPad}>
@@ -42,19 +74,15 @@ export const InputPad = defineComponent({
                     </div>
                 </div>
 
-                <div class={style.buttons}>
+                <div class={[style.buttons, 'buttons']}>
                     <button>1</button>
                     <button>2</button>
                     <button>3</button>
-                    <button class={style.delete}>
-                        <Icon name="backspace" class={style.icon} />
-                    </button>
-                    {/* <button>+</button> */}
+                    <button class={style.delete} id='delete'><Icon name="backspace" class={style.icon} /></button>
                     <button>4</button>
                     <button>5</button>
                     <button>6</button>
-                    {/* <button>-</button> */}
-                    <button class={style.ok}>OK</button>
+                    <button class={style.ok} id='ok'>OK</button>
                     <button>7</button>
                     <button>8</button>
                     <button>9</button>

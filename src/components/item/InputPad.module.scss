@@ -8,21 +8,17 @@
         padding: 0px 16px;
         height: 50px;
 
-        * {
+        .date {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            // border: 1px solid red;
-        }
 
-        .date {
             .icon {
                 width: 20px;
                 height: 20px;
                 margin-right: 2px;
             }
         }
-
 
         .amount {
             font-size: 28px;
@@ -52,14 +48,23 @@
             justify-content: center;
             align-items: center;
 
+            &.delete {
+                grid-area: 1/4/3/5;
+                font-size: 28px;
+            }
+
             &.ok {
                 grid-area: 3/4/5/5;
                 font-size: 28px;
             }
 
+            &.zero {
+                grid-area: 4/1/5/3;
+            }
+
             .icon {
-                width: 28px;
-                height: 28px;
+                width: 32px;
+                height: 32px;
             }
 
             //按比例逐渐加深键盘颜色
@@ -80,24 +85,22 @@
                 background: darken($bg, 4 * 2%);
             }
 
-            &:nth-child(4),
             &:nth-child(7),
-            &:nth-child(10),
-            &:nth-child(13) {
+            &:nth-child(10) {
                 background: darken($bg, 4 * 3%);
             }
 
-            &:nth-child(8),
+            &:nth-child(4),
             &:nth-child(11),
-            &:nth-child(14) {
+            &:nth-child(12) {
                 background: darken($bg, 4 * 4%);
             }
 
-            &:nth-child(15) {
+            &:nth-child(13) {
                 background: darken($bg, 4 * 5%);
             }
 
-            &:nth-child(12) {
+            &:nth-child(8) {
                 background: darken($bg, 4 * 6%);
             }
         }

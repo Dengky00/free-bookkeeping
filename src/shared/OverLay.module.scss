@@ -10,7 +10,7 @@
     backdrop-filter: blur(6px);
 
     &::before {
-        @extend %innerShadow;
+        @extend %outerShadow;
         content: "";
         position: absolute;
         top: 0;

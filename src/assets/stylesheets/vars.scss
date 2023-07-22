@@ -1,17 +1,17 @@
 :root {
-    --welcome-bg-start: #4169E1;
+    --button-bg: #1E90FF;
+    --button-text: white;
+    --float-button-bg: var(--button-bg);
+    --float-button-text: white;
+    --navbar-bg-end: var(--welcome-bg-end);
+    --navbar-bg-start: var(--welcome-bg-start);
+    --navbar-text: white;
+    --sign-text: white;
     --welcome-bg-end: #00BFFF;
+    --welcome-bg-start: #4169E1;
     --welcome-card-bg: white;
     --welcome-text: white;
     --z-index-bottom-nav: 10;
-    --button-bg: #1E90FF;
-    --button-text: white;
-    --float-button-text: white;
-    --float-button-bg: var(--button-bg);
-    --navbar-bg-start: var(--welcome-bg-start);
-    --navbar-bg-end: var(--welcome-bg-end);
-    --navbar-text: white;
-    --sign-text: white;
 }
 
 %outerShadow {

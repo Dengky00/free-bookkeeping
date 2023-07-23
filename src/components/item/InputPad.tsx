@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, ref } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import style from './InputPad.module.scss';
 import { Icon } from '../../shared/Icon';
 import dayjs from 'dayjs'
@@ -13,10 +13,19 @@ export const InputPad = defineComponent({
         }
     },
     setup: (props, context) => {
-        const refAmount = ref('')
+        const refAmount = ref('')//用户输入金额
         const now = new Date()
-        const refDate = ref([dayjs(now).format('YYYY'), dayjs(now).format('MM'), dayjs(now).format('DD')])
-        const vantDate = ref(refDate.value)
+        const refDate = ref([dayjs(now).format('YYYY'), dayjs(now).format('MM'), dayjs(now).format('DD')])//vant的DatePicker接受数组形式的年月日
+        const vantDate = ref(refDate.value)//暂存DatePicker中用户未确定时的日期
+        const showDate = computed(() => {//展示在页面上的日期
+            if (dayjs(now).format('YYYY-MM-DD')
+                === (refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2])) {
+                return '今天'
+            } else {
+                return refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2]
+            }
+        })
+
         const refDatePickerVisible = ref(false)
         const showDatePicker = () => refDatePickerVisible.value = true
         const hideDatePicker = () => refDatePickerVisible.value = false
@@ -59,7 +68,7 @@ export const InputPad = defineComponent({
                     <div>
                         <span class={style.date} onClick={showDatePicker}>
                             <Icon name="date" class={style.icon} />
-                            {refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2]}
+                            {showDate.value}
                         </span>
                         <Popup position='bottom'
                             v-model:show={refDatePickerVisible.value}

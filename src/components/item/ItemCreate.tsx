@@ -6,11 +6,6 @@ import { Tab, Tabs } from '../../shared/Tabs';
 import { InputPad } from './InputPad';
 
 export const ItemCreate = defineComponent({
-    // props: {
-    //     name: {
-    //         type: String as PropType<string>
-    //     },
-    // },
     setup: (props, context) => {
         const kind = ref('支出')
         return () => (

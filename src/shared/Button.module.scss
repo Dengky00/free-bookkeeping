@@ -1,5 +1,6 @@
 .button {
-    border: 1px solid var(--button-bg);
+    // border: 1px solid var(--button-bg);
+    border: none;
     font-size: 18px;
     padding: 8px 16px;
     background: var(--button-bg);
@@ -7,4 +8,12 @@
     border-radius: 8px;
     height: 48px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+    &.normal {}
+
+    &.important {}
+
+    &.danger {
+        background: red;
+    }
 }

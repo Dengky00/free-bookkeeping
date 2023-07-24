@@ -32,8 +32,7 @@ export const routes: RouteRecordRaw[] = [
     {
         path: '/items', component: ItemPage,
         children: [
-            { path: '', redirect: '/items/list', },
-            { path: 'list', component: ItemList },
+            { path: '', component: ItemList },
             { path: 'create', component: ItemCreate },
         ],
     },
@@ -42,7 +41,7 @@ export const routes: RouteRecordRaw[] = [
         children: [
             { path: '', redirect: '/tags/create', },
             { path: 'create', component: TagCreate },
-            { path: ':id', component: TagEdit },
+            { path: ':id/edit', component: TagEdit },
         ]
     },
 ]

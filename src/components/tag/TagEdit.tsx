@@ -1,15 +1,26 @@
-import { defineComponent, PropType } from 'vue';
-import style from './TagEdit.module.scss';
+import { defineComponent } from 'vue';
+import style from './Tag.module.scss';
+import { Icon } from '../../shared/Icon';
+import { MainLayout } from '../../layouts/MainLayout';
+import { Button } from '../../shared/Button';
+import { TagForm } from './TagForm';
 
 export const TagEdit = defineComponent({
-    props: {
-        name: {
-            type: String as PropType<string>
-        }
-    },
-    setup: (props, context) => {
+    setup: () => {
         return () => (
-            <div class={style.wrapper}>TagEdit</div>
+            <MainLayout>
+                {{
+                    title: () => '标签详情',
+                    icon: () => <Icon name='left' />,
+                    default: () => (<>
+                        <TagForm />
+                        <div class={style.actions}>
+                            <Button level='danger'>删除标签</Button>
+                            <Button level='danger'>删除记账</Button>
+                        </div>
+                    </>)
+                }}
+            </MainLayout>
         )
     }
 })

@@ -14,11 +14,10 @@ export const InputPad = defineComponent({
     },
     setup: (props, context) => {
         const refAmount = ref('')//用户输入金额
-        const now = new Date()
-        const refDate = ref([dayjs(now).format('YYYY'), dayjs(now).format('MM'), dayjs(now).format('DD')])//vant的DatePicker接受数组形式的年月日
+        const refDate = ref([dayjs().format('YYYY'), dayjs().format('MM'), dayjs().format('DD')])//vant的DatePicker接受数组形式的年月日
         const vantDate = ref(refDate.value)//暂存DatePicker中用户未确定时的日期
         const showDate = computed(() => {//展示在页面上的日期
-            if (dayjs(now).format('YYYY-MM-DD')
+            if (dayjs().format('YYYY-MM-DD')
                 === (refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2])) {
                 return '今天'
             } else {

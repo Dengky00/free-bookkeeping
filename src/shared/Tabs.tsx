@@ -3,29 +3,32 @@ import style from './Tabs.module.scss';
 
 export const Tabs = defineComponent({
     props: {
+        classPrefix: {
+            type: String
+        },
         selected: {
             type: String as PropType<string>
         },
-        // onUpdateSelected: {
-        //     type: Function as PropType<(name: string) => void>
-        // }
+        onClick: {
+            type: Function as PropType<(e: MouseEvent) => void>
+        }
     },
     setup: (props, context) => {
         return () => {
             const tabs = context.slots.default?.()
-            if (!tabs) return null
+            if (!tabs) { return null }
             for (let i = 0; i < tabs.length; i++) {
                 if (tabs[i].type !== Tab) {
                     throw new Error('<Tabs> only accepts <Tab> as children')
                 }
             }
-            return (<div class={style.tabs}>
-                <ol class={style.tabs_nav}>
+            return (<div class={[style.tabs, props.classPrefix + '_tabs']}>
+                <ol class={[style.tabs_nav, props.classPrefix + '_tabs_nav']}>
                     {tabs.map(item =>
                         <li
-                            class={item.props?.name === props.selected ? style.selected : ''}
-                            // onClick={() => props.onUpdateSelected?.(item.props?.name)}
-                            onClick={() => context.emit('update:selected', item.props?.name)}
+                            class={[item.props?.name === props.selected ? [style.selected, props.classPrefix + '_selected'] : '',
+                            props.classPrefix + '_tabs_nav_item']}
+                            onClick={(e) => { context.emit('update:selected', item.props?.name); props.onClick?.(e) }}
                         >
                             {item.props?.name}
                         </li>)}

@@ -17,7 +17,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
 
     >.currentUser {
@@ -39,6 +38,7 @@
         &_list {
             padding-top: 16px;
             font-size: 20px;
+            color: #333;
         }
 
         >.icon {
@@ -47,4 +47,15 @@
             margin-right: 12px;
         }
     }
+}
+
+.enterFrom,
+.leaveTo {
+    transform: translateX(calc(100%));
+    opacity: 0;
+}
+
+.enterActive,
+.leaveActive {
+    transition: all .5s;
 }

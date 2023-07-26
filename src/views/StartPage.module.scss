@@ -15,14 +15,3 @@
         }
     }
 }
-
-.enterFrom,
-.leaveTo {
-    transform: translateX(calc(100%));
-    opacity: 0;
-}
-
-.enterActive,
-.leaveActive {
-    transition: all .5s;
-}

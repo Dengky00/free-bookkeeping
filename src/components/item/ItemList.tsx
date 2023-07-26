@@ -7,6 +7,7 @@ import { ItemSummary } from './ItemSummary';
 import dayjs from 'dayjs';
 import { Overlay } from 'vant';
 import { Form, FormItem } from '../../shared/Form';
+import { OverLayIcon } from '../../shared/OverLay';
 
 export const ItemList = defineComponent({
     setup: (props, context) => {
@@ -39,9 +40,9 @@ export const ItemList = defineComponent({
             <MainLayout>
                 {{
                     title: () => '自由记账',
-                    icon: () => <Icon name='menu' />,
+                    icon: () => <OverLayIcon />,
                     default: () => (<>
-                        <Tabs v-model:selected={refSelected.value} onClick={showOverlay}>
+                        <Tabs v-model:selected={refSelected.value} onUpdate:selected={showOverlay}>
                             <Tab name="本月">
                                 <ItemSummary startDate={timeList.thisMonth.start} endDate={timeList.thisMonth.end} />
                             </Tab>

@@ -1,24 +1,20 @@
-import { Transition, defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import style from './StartPage.module.scss';
 import { Button } from '../shared/Button';
 import { FloatButton } from '../shared/FloatButton';
 import { Center } from '../shared/Center';
 import { Icon } from '../shared/Icon';
-import { OverLay } from '../shared/OverLay';
+import { OverLayIcon } from '../shared/OverLay';
 import { RouterLink } from 'vue-router';
 import { MainLayout } from '../layouts/MainLayout';
 
 export const StartPage = defineComponent({
     setup: (props, context) => {
-        const overlayVisible = ref(false)
-        const onClickMenu = () => {
-            overlayVisible.value = !overlayVisible.value
-        }
         return () => (
             <MainLayout class={style.wrapper}>
                 {{
                     title: () => '自由记账',
-                    icon: () => <Icon name='menu' onClick={onClickMenu} />,
+                    icon: () => <OverLayIcon />,
                     default: () => (
                         <div>
                             <Center class={style.icon_wrapper}>
@@ -32,13 +28,7 @@ export const StartPage = defineComponent({
                             <RouterLink to="/items/create">
                                 <FloatButton iconName='add' />
                             </RouterLink>
-                            <Transition
-                                leaveActiveClass={style.leaveActive}
-                                enterActiveClass={style.enterActive}
-                                leaveToClass={style.leaveTo}
-                                enterFromClass={style.enterFrom}>
-                                {overlayVisible.value && <OverLay />}
-                            </Transition>
+
                         </div>
                     )
                 }

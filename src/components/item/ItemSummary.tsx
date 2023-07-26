@@ -17,11 +17,18 @@ export const ItemSummary = defineComponent({
     setup: (props, context) => {
         return () => (
             <div class={style.wrapper}>
-                <ul class={style.total}>
-                    <li><span>收入</span><span>128</span></li>
-                    <li><span>支出</span><span>99</span></li>
-                    <li><span>净收入</span><span>39</span></li>
-                </ul>
+                <table class={style.total}>
+                    <tr>
+                        <td>支出</td>
+                        <td>收入</td>
+                        <td>净收入</td>
+                    </tr>
+                    <tr>
+                        <td>12345678.12</td>
+                        <td>12345678.12</td>
+                        <td>12345678.12</td>
+                    </tr>
+                </table>
                 <ol class={style.list}>
                     <li>
                         <div class={style.sign}>

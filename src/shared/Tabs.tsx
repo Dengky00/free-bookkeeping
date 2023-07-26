@@ -9,10 +9,8 @@ export const Tabs = defineComponent({
         selected: {
             type: String as PropType<string>
         },
-        onClick: {
-            type: Function as PropType<(e: MouseEvent) => void>
-        }
     },
+    emits: ['update:selected'],
     setup: (props, context) => {
         return () => {
             const tabs = context.slots.default?.()
@@ -22,21 +20,22 @@ export const Tabs = defineComponent({
                     throw new Error('<Tabs> only accepts <Tab> as children')
                 }
             }
-            return (<div class={[style.tabs, props.classPrefix + '_tabs']}>
-                <ol class={[style.tabs_nav, props.classPrefix + '_tabs_nav']}>
-                    {tabs.map(item =>
-                        <li
-                            class={[item.props?.name === props.selected ? [style.selected, props.classPrefix + '_selected'] : '',
-                            props.classPrefix + '_tabs_nav_item']}
-                            onClick={(e) => { context.emit('update:selected', item.props?.name); props.onClick?.(e) }}
-                        >
-                            {item.props?.name}
-                        </li>)}
-                </ol>
-                <div>
-                    {tabs.find(item => item.props?.name === props.selected)}
-                </div>
-            </div>)
+            return (
+                <div class={[style.tabs, props.classPrefix + '_tabs']}>
+                    <ol class={[style.tabs_nav, props.classPrefix + '_tabs_nav']}>
+                        {tabs.map(item =>
+                            <li
+                                class={[item.props?.name === props.selected ? [style.selected, props.classPrefix + '_selected'] : '',
+                                props.classPrefix + '_tabs_nav_item']}
+                                onClick={() => { context.emit('update:selected', item.props?.name) }}
+                            >
+                                {item.props?.name}
+                            </li>)}
+                    </ol>
+                    <div>
+                        {tabs.find(item => item.props?.name === props.selected)}
+                    </div>
+                </div>)
         }
     }
 })

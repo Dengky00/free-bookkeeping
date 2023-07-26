@@ -1,26 +1,23 @@
-.wrapper {}
-
 .total {
-    background: #252A43;
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    margin: 16px;
+    background: rgb(114, 214, 227);
     border-radius: 8px;
-    padding: 0 16px;
+    width: calc(100% - 32px);
+    margin: 16px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
 
-    >li {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
+    >tr {
+        >td {
+            padding: 8px 0;
 
-        &:first-child {
-            color: #FE7275;
-        }
+            &:first-child {
+                color: green;
+            }
 
-        &:nth-child(2) {
-            color: #53A867;
+            &:nth-child(2) {
+                color: red;
+            }
         }
     }
 }

@@ -21,19 +21,12 @@ export const Form = defineComponent({
 
 export const FormItem = defineComponent({
     props: {
-        label: {
-            type: String
-        },
-        modelValue: {
-            type: [String, Number, Array]
-        },
-        type: {
-            type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
-        },
-        error: {
-            type: String
-        },
+        label: String,
+        modelValue: [String, Number, Array],
+        type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
+        error: String,
         placeholder: String,
+        // options: Array as PropType<Array<{ value: string, text: string }>>
     },
     setup: (props, context) => {
         const refDatePickerVisible = ref(false)
@@ -49,21 +42,21 @@ export const FormItem = defineComponent({
         })
         const content = computed(() => {
             switch (props.type) {
-                case 'text':
+                case 'text'://文本表单
                     return <input
                         value={props.modelValue} placeholder={props.placeholder}
                         onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                         class={[style.formItem, style.input]} />
-                case 'emojiSelect':
+                case 'emojiSelect'://emoji表单
                     return <EmojiSelect
                         modelValue={props.modelValue?.toString()}
                         onUpdateModelValue={value => context.emit('update:modelValue', value)}
-                        class={[style.formItem, style.emojiList, style.error]} />
-                case 'date':
+                        class={[style.formItem, style.emojiList]} />
+                case 'date'://日期表单
                     return <>
                         <input readonly={true}
                             value={showDate.value}
-                            class={[style.formItem, style.input, style.error]}
+                            class={[style.formItem, style.input]}
                             onClick={showDatePicker} />
                         <Popup position='bottom' v-model:show={refDatePickerVisible.value}
                             onClickOverlay={(e: Event) => {
@@ -75,13 +68,21 @@ export const FormItem = defineComponent({
                                 onCancel={() => { vantDate.value = props.modelValue; hideDatePicker() }} />
                         </Popup>
                     </>
-                case 'validationCode':
+                case 'validationCode'://验证码表单
                     return <>
                         <input value={props.modelValue} placeholder={props.placeholder}
                             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                             class={[style.formItem, style.input, style.validationCodeInput]} />
                         <Button class={style.validationButton}>发送验证码</Button>
                     </>
+                // case 'select'://下拉框表单
+                //     return <select value={props.modelValue}
+                //         class={[style.formItem, style.select]}
+                //         onChange={(e: any) => { context.emit('update:modelValue', e.target.value) }}>
+                //         {props.options?.map(option =>
+                //             <option value={option.value}>{option.text}</option>
+                //         )}
+                //     </select>
                 case undefined:
                     return context.slots.default?.()
             }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.9",
+    "echarts": "^5.4.3",
     "http-server": "^14.1.1",
     "sass": "^1.63.6",
     "svgo": "^3.0.2",

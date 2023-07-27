@@ -1,7 +1,11 @@
-.select {
+.wrapper{
     padding: 16px;
+}
+.select {
+    padding: 16px 0;
     font-size: 20px;
-    select{
+
+    select {
         font-size: inherit;
         border-radius: 8px;
         margin-left: 16px;

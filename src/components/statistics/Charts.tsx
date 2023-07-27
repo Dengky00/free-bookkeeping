@@ -1,7 +1,10 @@
-import { PropType, defineComponent, ref } from 'vue';
+import { PropType, defineComponent, onMounted, ref } from 'vue';
 import style from './Charts.module.scss';
 import { Dayjs } from 'dayjs';
-import { FormItem } from '../../shared/Form';
+import * as echarts from 'echarts';
+import { LineChart } from './LineChart';
+import { PieChart } from './PieChart';
+import { Bars } from './Bars';
 
 export const Charts = defineComponent({
     props: {
@@ -31,6 +34,9 @@ export const Charts = defineComponent({
                         { value: 'expense', text: '支出' },
                         { value: 'income', text: '收入' },
                     ]} /> */}
+                <LineChart />
+                <PieChart />
+                <Bars/>
             </div >
         )
     }

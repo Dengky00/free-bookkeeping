@@ -47,4 +47,12 @@
         color: #E10505;
         font-size: 12px;
     }
+
+    &.validationCodeInput {
+        flex-grow: 0;
+        width: 10em;
+    }
+}
+.validationButton{
+    margin-left: 16px;
 }

@@ -18,7 +18,7 @@ export const TagForm = defineComponent({
                 { key: 'name', type: 'pattern', regex: /^.{1,4}$/, message: '只能填 1 到 4 个字符' },
                 { key: 'sign', type: 'required', message: '必填' },
             ]
-            Object.assign(errors, {
+            Object.assign(errors, {//error为const常量对象只读,用assign省去分别对每个属性操作
                 name: undefined,
                 sign: undefined,
             })

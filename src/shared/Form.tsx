@@ -2,6 +2,7 @@ import { computed, defineComponent, PropType, ref } from 'vue';
 import { EmojiSelect } from './EmojiSelect';
 import style from './Form.module.scss';
 import { DatePicker, Popup } from 'vant';
+import { Button } from './Button';
 
 export const Form = defineComponent({
     props: {
@@ -27,11 +28,12 @@ export const FormItem = defineComponent({
             type: [String, Number, Array]
         },
         type: {
-            type: String as PropType<'text' | 'emojiSelect' | 'date'>,
+            type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
         },
         error: {
             type: String
-        }
+        },
+        placeholder: String,
     },
     setup: (props, context) => {
         const refDatePickerVisible = ref(false)
@@ -49,9 +51,9 @@ export const FormItem = defineComponent({
             switch (props.type) {
                 case 'text':
                     return <input
-                        value={props.modelValue}
+                        value={props.modelValue} placeholder={props.placeholder}
                         onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-                        class={[style.formItem, style.input, style.error]} />
+                        class={[style.formItem, style.input]} />
                 case 'emojiSelect':
                     return <EmojiSelect
                         modelValue={props.modelValue?.toString()}
@@ -72,6 +74,13 @@ export const FormItem = defineComponent({
                                 onConfirm={() => { context.emit("update:modelValue", vantDate.value); hideDatePicker() }}
                                 onCancel={() => { vantDate.value = props.modelValue; hideDatePicker() }} />
                         </Popup>
+                    </>
+                case 'validationCode':
+                    return <>
+                        <input value={props.modelValue} placeholder={props.placeholder}
+                            onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
+                            class={[style.formItem, style.input, style.validationCodeInput]} />
+                        <Button class={style.validationButton}>发送验证码</Button>
                     </>
                 case undefined:
                     return context.slots.default?.()

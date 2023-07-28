@@ -26,6 +26,7 @@ export const FormItem = defineComponent({
         type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
         error: String,
         placeholder: String,
+        onClick: Function as PropType<() => void>,
         // options: Array as PropType<Array<{ value: string, text: string }>>
     },
     setup: (props, context) => {
@@ -73,7 +74,7 @@ export const FormItem = defineComponent({
                         <input value={props.modelValue} placeholder={props.placeholder}
                             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                             class={[style.formItem, style.input, style.validationCodeInput]} />
-                        <Button class={style.validationButton}>发送验证码</Button>
+                        <Button onClick={props.onClick} class={style.validationButton}>发送验证码</Button>
                     </>
                 // case 'select'://下拉框表单
                 //     return <select value={props.modelValue}

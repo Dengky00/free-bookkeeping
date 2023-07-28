@@ -16,4 +16,9 @@
     &.danger {
         background: red;
     }
+
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }

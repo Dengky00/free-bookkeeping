@@ -27,9 +27,27 @@ export const FormItem = defineComponent({
         error: String,
         placeholder: String,
         onClick: Function as PropType<() => void>,
+        countFrom: {
+            type: Number,
+            default: 60,
+        },
         // options: Array as PropType<Array<{ value: string, text: string }>>
     },
     setup: (props, context) => {
+        const timer = ref<number>()
+        const count = ref<number>(props.countFrom)
+        const isCounting = computed(() => !!timer.value)//!!代表isCounting值与timer.value保持一致
+        const startCount = () => {
+            timer.value = setInterval(() => {
+                count.value -= 1
+                if (count.value === 0) {
+                    clearInterval(timer.value)
+                    timer.value = undefined
+                    count.value = props.countFrom
+                }
+            }, 1000)
+        }
+        context.expose({ startCount })
         const refDatePickerVisible = ref(false)
         const hideDatePicker = () => { refDatePickerVisible.value = false }
         const showDatePicker = () => { refDatePickerVisible.value = true }
@@ -74,7 +92,9 @@ export const FormItem = defineComponent({
                         <input value={props.modelValue} placeholder={props.placeholder}
                             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                             class={[style.formItem, style.input, style.validationCodeInput]} />
-                        <Button onClick={props.onClick} class={style.validationButton}>发送验证码</Button>
+                        <Button disabled={isCounting.value} onClick={props.onClick} class={style.validationButton}>
+                            {isCounting.value ? `${count.value}秒后重置` : '发送验证码'}
+                        </Button>
                     </>
                 // case 'select'://下拉框表单
                 //     return <select value={props.modelValue}

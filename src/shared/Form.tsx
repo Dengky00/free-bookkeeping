@@ -3,6 +3,7 @@ import { EmojiSelect } from './EmojiSelect';
 import style from './Form.module.scss';
 import { DatePicker, Popup } from 'vant';
 import { Button } from './Button';
+import { getFriendlyError } from './getFrendlyError';
 
 export const Form = defineComponent({
     props: {
@@ -119,7 +120,7 @@ export const FormItem = defineComponent({
                     </div>
                     {props.error &&
                         <div class={style.formItem_errorHint}>
-                            <span>{props.error}</span>
+                            <span>{props.error && getFriendlyError(props.error)}</span>
                         </div>
                     }
                 </label>

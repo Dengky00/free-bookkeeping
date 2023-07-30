@@ -21,7 +21,7 @@ export const Button = defineComponent({
             type: Boolean,
             default: false,
         },
-        autoSelfDisabled: {
+        autoSelfDisabled: {//默认不开启自我沉默
             type: Boolean,
             default: false
         },
@@ -29,7 +29,7 @@ export const Button = defineComponent({
     setup: (props, context) => {
         const selfDisabled = ref(false)
         const _disabled = computed(() => {
-            if (props.autoSelfDisabled === false) {
+            if (props.autoSelfDisabled === false) {//外部是否要求自我沉默
                 return props.disabled
             }
             if (selfDisabled.value) {//先判断自我沉默

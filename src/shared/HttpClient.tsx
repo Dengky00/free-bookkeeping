@@ -28,11 +28,11 @@ export class HttpClient {
 export const httpClient = new HttpClient('/api/v1')
 
 httpClient.instance.interceptors.response.use(response => {//interceptors拦截器,统一处理错误
-    // console.log('response')
+    console.log('response')
     return response
-}, (error) => {
-    if (error.response) {
-        const axiosError = error as AxiosError
+}, (error) => {//error类型为any,因为不一定是请求错误,原因有多种,比如语法错误
+    if (error.response) {//所有此次要判断error是否有response,即请求错误
+        const axiosError = error as AxiosError//断言error类型,后续方便使用ts语法提示
         if (axiosError.response?.status === 429) {
             alert('点击过于频繁')
         }

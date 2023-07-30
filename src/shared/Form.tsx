@@ -3,7 +3,7 @@ import { EmojiSelect } from './EmojiSelect';
 import style from './Form.module.scss';
 import { DatePicker, Popup } from 'vant';
 import { Button } from './Button';
-import { getFriendlyError } from './getFrendlyError';
+import { getFriendlyError } from './getFriendlyError';
 
 export const Form = defineComponent({
     props: {
@@ -27,18 +27,19 @@ export const FormItem = defineComponent({
         type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
         error: String,
         placeholder: String,
-        onClick: Function as PropType<() => void>,
+        onClick: Function as PropType<(e: MouseEvent) => void>,
         countFrom: {
             type: Number,
             default: 60,
         },
+        disabled: Boolean
         // options: Array as PropType<Array<{ value: string, text: string }>>
     },
     setup: (props, context) => {
         const timer = ref<number>()
         const count = ref<number>(props.countFrom)
         const isCounting = computed(() => !!timer.value)//!!代表isCounting值与timer.value保持一致
-        const startCount = () => {
+        const startCount = () => {//倒计时
             timer.value = setInterval(() => {
                 count.value -= 1
                 if (count.value === 0) {
@@ -48,7 +49,7 @@ export const FormItem = defineComponent({
                 }
             }, 1000)
         }
-        context.expose({ startCount })
+        context.expose({ startCount })//将此函数暴露出去
         const refDatePickerVisible = ref(false)
         const hideDatePicker = () => { refDatePickerVisible.value = false }
         const showDatePicker = () => { refDatePickerVisible.value = true }
@@ -93,7 +94,7 @@ export const FormItem = defineComponent({
                         <input value={props.modelValue} placeholder={props.placeholder}
                             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                             class={[style.formItem, style.input, style.validationCodeInput]} />
-                        <Button disabled={isCounting.value} onClick={props.onClick} class={style.validationButton}>
+                        <Button disabled={isCounting.value || props.disabled} onClick={props.onClick} class={style.validationButton}>
                             {isCounting.value ? `${count.value}秒后重置` : '发送验证码'}
                         </Button>
                     </>

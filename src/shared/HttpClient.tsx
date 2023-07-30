@@ -28,7 +28,7 @@ export class HttpClient {
 export const httpClient = new HttpClient('/api/v1')
 
 httpClient.instance.interceptors.response.use(response => {//interceptors拦截器,统一处理错误
-    console.log('response')
+    // console.log('response')
     return response
 }, (error) => {
     if (error.response) {

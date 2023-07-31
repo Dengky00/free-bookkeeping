@@ -27,7 +27,15 @@ export class HttpClient {
 }
 export const httpClient = new HttpClient('/api/v1')
 
-httpClient.instance.interceptors.response.use(response => {//interceptors拦截器,统一处理错误
+httpClient.instance.interceptors.request.use(config => {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {//Authorization是HTTP请求头部的一种类型,用于传递身份验证信息,Bearer方案是一种用于简化身份验证的标准格式
+        config.headers!.Authorization = `Bearer ${jwt}`
+    }
+    return config
+})
+
+httpClient.instance.interceptors.response.use(response => {//interceptors响应拦截器,统一处理错误
     console.log('response')
     return response
 }, (error) => {//error类型为any,因为不一定是请求错误,原因有多种,比如语法错误

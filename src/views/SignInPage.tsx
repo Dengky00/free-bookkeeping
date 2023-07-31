@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive, ref, useCssModule } from 'vue';
+import { defineComponent, PropType, reactive, ref } from 'vue';
 import style from './SignInPage.module.scss';
 import { MainLayout } from '../layouts/MainLayout';
 import { Icon } from '../shared/Icon';
@@ -8,6 +8,7 @@ import { hasError, Rules, validate } from '../shared/validate';
 import { httpClient } from '../shared/HttpClient';
 import { useBool } from '../hooks/useBool';
 import { useRoute, useRouter } from 'vue-router';
+import { refreshMe } from '../shared/me';
 
 export const SignInPage = defineComponent({
     props: {
@@ -50,6 +51,7 @@ export const SignInPage = defineComponent({
                 // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
                 const returnTo = route.query.return_to?.toString()
                 // const returnTo = localStorage.getItem('returnTo')//从localStorage读取登录后要返回的地址
+                refreshMe()
                 router.push(returnTo || '/')
             }
         }

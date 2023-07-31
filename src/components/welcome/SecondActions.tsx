@@ -1,11 +1,12 @@
+import { SkipFeatures } from '../../shared/SkipFeatures';
 import style from './welcome.module.scss';
 import { RouterLink } from 'vue-router';
 
 export const SecondActions = () =>
   <div class={style.actions}>
-    <RouterLink class={style.fake} to="/start" >跳过</RouterLink>
+    <SkipFeatures class={style.fake}>跳过</SkipFeatures>
     <RouterLink to="/welcome/3" >下一页</RouterLink>
-    <RouterLink to="/start" >跳过</RouterLink>
+    <SkipFeatures>跳过</SkipFeatures>
   </div>
 
 SecondActions.displayName = 'SecondActions'

@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive, ref } from 'vue';
+import { defineComponent, PropType, reactive, ref, useCssModule } from 'vue';
 import style from './SignInPage.module.scss';
 import { MainLayout } from '../layouts/MainLayout';
 import { Icon } from '../shared/Icon';
@@ -7,7 +7,7 @@ import { Button } from '../shared/Button';
 import { hasError, Rules, validate } from '../shared/validate';
 import { httpClient } from '../shared/HttpClient';
 import { useBool } from '../hooks/useBool';
-import { history } from '../shared/history';
+import { useRoute, useRouter } from 'vue-router';
 
 export const SignInPage = defineComponent({
     props: {
@@ -16,6 +16,8 @@ export const SignInPage = defineComponent({
         }
     },
     setup: (props, context) => {
+        const router = useRouter()
+        const route = useRoute()
         const refValidationCode = ref<any>()
         // const refValidationCodeDisabled = ref(false)
         const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
@@ -40,12 +42,15 @@ export const SignInPage = defineComponent({
                 code: undefined,
             })
             Object.assign(errors, validate(formData, rules))
-            if (!hasError(errors)) {
+            if (!hasError(errors)) {//不存在验证错误即可登录
                 const response = await httpClient
                     .post<{ jwt: string }>('/session', formData)
                     .catch(onError)
                 localStorage.setItem('jwt', response.data.jwt)
-                history.push('/')
+                // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
+                const returnTo = route.query.return_to?.toString()
+                // const returnTo = localStorage.getItem('returnTo')//从localStorage读取登录后要返回的地址
+                router.push(returnTo || '/')
             }
         }
         const onError = (error: any) => {

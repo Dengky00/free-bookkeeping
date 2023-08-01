@@ -33,14 +33,12 @@ export class HttpClient {
 }
 
 const mock = (response: AxiosResponse) => {
-    if (location.hostname !== 'localhost'
+    if (location.hostname !== 'localhost'//如果不是本地服务器就不使用mock
         && location.hostname !== '127.0.0.1'
         && location.hostname !== '192.168.3.57') { return false }
     switch (response.config?.params?._mock) {
         case 'tagIndex':
             [response.status, response.data] = mockTagIndex(response.config)
-            console.log('response')
-            console.log(response)
             return true
         case 'session':
             [response.status, response.data] = mockSession(response.config)
@@ -49,9 +47,9 @@ const mock = (response: AxiosResponse) => {
     return false
 }
 
-export const httpClient = new HttpClient('/api/v1')
+export const httpClient = new HttpClient('/api/v1')//封装连接的服务器
 
-httpClient.instance.interceptors.request.use(config => {
+httpClient.instance.interceptors.request.use(config => {//请求拦截,每条请求带上本地存储的jwt,标志是否登录
     const jwt = localStorage.getItem('jwt')
     if (jwt) {//Authorization是HTTP请求头部的一种类型,用于传递身份验证信息,Bearer方案是一种用于简化身份验证的标准格式
         config.headers!.Authorization = `Bearer ${jwt}`
@@ -60,7 +58,7 @@ httpClient.instance.interceptors.request.use(config => {
 })
 
 httpClient.instance.interceptors.response.use((response) => {
-    mock(response)
+    mock(response)//响应拦截,如果是本地数据自测,则返回可测试的假数据
     return response
 }, (error) => {
     if (mock(error.response)) {

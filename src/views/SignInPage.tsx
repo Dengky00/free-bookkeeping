@@ -45,8 +45,9 @@ export const SignInPage = defineComponent({
             Object.assign(errors, validate(formData, rules))
             if (!hasError(errors)) {//不存在验证错误即可登录
                 const response = await httpClient
-                    .post<{ jwt: string }>('/session', formData)
-                    .catch(onError)
+                    .post<{ jwt: string }>('/session', formData, {
+                        params: { _mock: 'session' }
+                    }).catch(onError)
                 localStorage.setItem('jwt', response.data.jwt)
                 // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
                 const returnTo = route.query.return_to?.toString()

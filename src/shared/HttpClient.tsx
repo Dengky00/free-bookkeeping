@@ -58,7 +58,7 @@ httpClient.instance.interceptors.request.use(config => {//请求拦截,每条请
 })
 
 httpClient.instance.interceptors.response.use((response) => {
-    mock(response)//响应拦截,如果是本地数据自测,则返回可测试的假数据
+    mock(response)//响应拦截,判断是否返回模拟数据
     return response
 }, (error) => {
     if (mock(error.response)) {

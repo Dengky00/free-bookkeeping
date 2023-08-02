@@ -15,7 +15,7 @@ export class HttpClient {
         })
     }
     //查read
-    get<R = unknown>(url: string, query?: Record<string, string>, config?: GetConfig) {
+    get<R = unknown>(url: string, query?: Record<string, JSONValue>, config?: GetConfig) {
         return this.instance.request<R>({ ...config, url: url, params: query, method: 'get' })
     }
     //增create

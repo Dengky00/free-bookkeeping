@@ -11,7 +11,7 @@ type Tag = {
     user_id: number,
     name: string,
     sign: string,
-    kind: expenses | income,
+    kind: expense | income,
 }
 
 type Resources<T = any> = {

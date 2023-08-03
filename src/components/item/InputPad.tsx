@@ -7,10 +7,11 @@ import 'vant/lib/index.css';
 
 export const InputPad = defineComponent({
     props: {
-        name: {
-            type: String as PropType<string>,
-            default: '',
-        }
+        amount: String,
+        happenAt: String,
+        onSubmit: {
+            type: Function as PropType<() => void>
+        },
     },
     setup: (props, context) => {
         const refAmount = ref('')//用户输入金额
@@ -35,10 +36,12 @@ export const InputPad = defineComponent({
             if (button.id === "delete" || button.nodeName === "svg") {//删除按钮
                 refAmount.value = refAmount.value.slice(0, -1);
             } else if (button.id === "ok") {//ok提交按钮
-                // if (refAmount.value && refAmount.value !== "0" && refAmount.value !== "0.") {
-                //     this.$emit("update:amount", refAmount.value);
-                //     refAmount.value = "";
-                // }
+                if (refAmount.value && refAmount.value !== "0" && refAmount.value !== "0.") {
+                    context.emit("update:amount", refAmount.value);
+                    context.emit('update:happenAt', showDate.value);
+                    refAmount.value = "";
+                    props.onSubmit?.()
+                }
             } else {
                 if (refAmount.value === "" && input === ".") { return; }
                 if (refAmount.value.indexOf(".") >= 0 && input === ".") { return; }

@@ -53,7 +53,7 @@ export const mockTagIndex: Mock = (config) => {
     return [200, createBody(1)]
   }
 }
-//模拟记账成功数据
+//模拟提交记账数据
 export const mockItemCreate: Mock = (config) => {
   return [
     200,
@@ -74,6 +74,16 @@ export const mockItemCreate: Mock = (config) => {
 }
 //模拟编辑已存在的标签
 export const mockTagShow: Mock = (config) => {
+  const createTag = (attrs?: any) => ({
+    id: createId(),
+    name: faker.lorem.word(),
+    sign: faker.internet.emoji(),
+    ...attrs,
+  })
+  return [200, { resource: createTag() }]
+}
+//模拟提交编辑完成的标签
+export const mockTagEdit: Mock = (config) => {
   const createTag = (attrs?: any) => ({
     id: createId(),
     name: faker.lorem.word(),

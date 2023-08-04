@@ -1,19 +1,19 @@
-import { defineComponent } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { Icon } from './Icon';
-
+import { defineComponent } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Icon } from './Icon'
+//返回按钮
 export const BackIcon = defineComponent({
   setup: (props, context) => {
-    const route = useRoute();
-    const router = useRouter();
+    const route = useRoute()
+    const router = useRouter()
     const onClick = () => {
-      const { return_to } = route.query;
+      const { return_to } = route.query
       if (return_to) {
-        router.push(return_to.toString());
+        router.push(return_to.toString())
       } else {
-        router.back();
+        router.back()
       }
-    };
-    return () => <Icon name="left" onClick={onClick} />;
+    }
+    return () => <Icon name="left" onClick={onClick} />
   },
-});
+})

@@ -2,6 +2,7 @@ import { onMounted, ref } from 'vue';
 import { AxiosResponse } from 'axios';
 
 type Fetcher = (page: number) => Promise<AxiosResponse<Resources<Tag>>>;
+//分页加载标签
 export const useTags = (fetcher: Fetcher) => {
   const page = ref(0); //记录已请求的页数
   const hasMore = ref(false); //判断是否还有更多数据

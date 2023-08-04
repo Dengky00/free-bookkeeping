@@ -1,9 +1,9 @@
 import { defineComponent } from 'vue';
 import style from './Tag.module.scss';
-import { Icon } from '../../shared/Icon';
 import { MainLayout } from '../../layouts/MainLayout';
 import { Button } from '../../shared/Button';
 import { TagForm } from './TagForm';
+import { BackIcon } from '../../shared/BackIcon';
 
 export const TagEdit = defineComponent({
   setup: () => {
@@ -11,7 +11,7 @@ export const TagEdit = defineComponent({
       <MainLayout>
         {{
           title: () => '标签详情',
-          icon: () => <Icon name="left" />,
+          icon: () => <BackIcon />,
           default: () => (
             <>
               <TagForm />

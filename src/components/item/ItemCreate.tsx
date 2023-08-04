@@ -1,7 +1,6 @@
 import { defineComponent, reactive } from 'vue';
 import style from './ItemCreate.module.scss';
 import { MainLayout } from '../../layouts/MainLayout';
-import { Icon } from '../../shared/Icon';
 import { Tab, Tabs } from '../../shared/Tabs';
 import { InputPad } from './InputPad';
 import { Tags } from './Tags';
@@ -9,6 +8,7 @@ import { httpClient } from '../../shared/HttpClient';
 import { useRouter } from 'vue-router';
 import { Dialog } from 'vant';
 import { AxiosError } from 'axios';
+import { BackIcon } from '../../shared/BackIcon';
 
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
@@ -45,7 +45,7 @@ export const ItemCreate = defineComponent({
       <MainLayout class={style.layout}>
         {{
           title: () => '记一笔',
-          icon: () => <Icon name="left" class={style.navIcon} />,
+          icon: () => <BackIcon />,
           default: () => (
             <>
               <div class={style.wrapper}>

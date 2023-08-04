@@ -1,22 +1,22 @@
 :root {
-    --button-bg: #1E90FF;
-    --button-text: white;
-    --float-button-bg: var(--button-bg);
-    --float-button-text: white;
-    --navbar-bg-end: var(--welcome-bg-end);
-    --navbar-bg-start: var(--welcome-bg-start);
-    --navbar-text: white;
-    --sign-text: white;
-    --welcome-bg-end: #00BFFF;
-    --welcome-bg-start: #4169E1;
-    --welcome-card-bg: white;
-    --welcome-text: white;
+  --button-bg: #1e90ff;
+  --button-text: white;
+  --float-button-bg: var(--button-bg);
+  --float-button-text: white;
+  --navbar-bg-end: var(--welcome-bg-end);
+  --navbar-bg-start: var(--welcome-bg-start);
+  --navbar-text: white;
+  --sign-text: white;
+  --welcome-bg-end: #00bfff;
+  --welcome-bg-start: #4169e1;
+  --welcome-card-bg: white;
+  --welcome-text: white;
 }
 
 %outerShadow {
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 }
 
 %innerShadow {
-    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
 }

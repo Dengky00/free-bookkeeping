@@ -1,17 +1,17 @@
 .wrapper {
-    .icon {
-        height: 200px;
+  .icon {
+    height: 200px;
 
-        &_wrapper {
-            padding: 150px 0;
-        }
+    &_wrapper {
+      padding: 150px 0;
     }
+  }
 
-    .button {
-        width: 100%;
+  .button {
+    width: 100%;
 
-        &_wrapper {
-            padding: 16px;
-        }
+    &_wrapper {
+      padding: 16px;
     }
+  }
 }

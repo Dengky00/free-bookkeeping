@@ -1,61 +1,61 @@
-@import "../assets/stylesheets/vars.scss";
+@import '../assets/stylesheets/vars.scss';
 
 .overlay {
-    position: fixed;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: calc(100% - 90px);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+
+  &::before {
+    @extend %outerShadow;
+    content: '';
+    position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    width: calc(100% - 90px);
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(6px);
+  }
 
-    &::before {
-        @extend %outerShadow;
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+  > .currentUser {
+    background: rgba(30, 144, 255, 0.5);
+    padding: 32px 24px 16px 24px;
+    color: var(--sign-text);
+
+    > p {
+      padding-top: 16px;
+    }
+  }
+
+  .action {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 12px 24px;
+
+    &_list {
+      padding-top: 16px;
+      font-size: 20px;
+      color: #333;
     }
 
-    >.currentUser {
-        background: rgba(30, 144, 255, 0.5);
-        padding: 32px 24px 16px 24px;
-        color: var(--sign-text);
-
-        >p {
-            padding-top: 16px;
-        }
+    > .icon {
+      width: 2em;
+      height: 2em;
+      margin-right: 12px;
     }
-
-    .action {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        padding: 12px 24px;
-
-        &_list {
-            padding-top: 16px;
-            font-size: 20px;
-            color: #333;
-        }
-
-        >.icon {
-            width: 2em;
-            height: 2em;
-            margin-right: 12px;
-        }
-    }
+  }
 }
 
 .enterFrom,
 .leaveTo {
-    transform: translateX(calc(100%));
-    opacity: 0;
+  transform: translateX(calc(100%));
+  opacity: 0;
 }
 
 .enterActive,
 .leaveActive {
-    transition: all .5s;
+  transition: all 0.5s;
 }

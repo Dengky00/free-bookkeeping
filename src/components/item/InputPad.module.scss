@@ -1,108 +1,107 @@
 .numberPad {
-    >.dateAndAmount {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
-        font-family: Consolas, monospace;
-        padding: 0px 16px;
-        height: 50px;
+  > .dateAndAmount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+    font-family: Consolas, monospace;
+    padding: 0px 16px;
+    height: 50px;
 
-        .date {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    .date {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-            .icon {
-                width: 20px;
-                height: 20px;
-                margin-right: 2px;
-            }
-        }
-
-        .amount {
-            font-size: 28px;
-
-            &.empty::after {
-                //div模拟placeholder占位符
-                content: "输入记账金额";
-                color: #999;
-                font-family: -apple-system;
-            }
-        }
-
+      .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+      }
     }
 
-    >.buttons {
-        display: grid;
-        grid: 25% 25% 25% 25%/25% 25% 25% 25%;
-        height: 30vh;
+    .amount {
+      font-size: 28px;
 
-        >button {
-            border: none;
-            margin: 1px;
-            background: transparent;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            &.delete {
-                grid-area: 1/4/3/5;
-                font-size: 28px;
-            }
-
-            &.ok {
-                grid-area: 3/4/5/5;
-                font-size: 28px;
-            }
-
-            &.zero {
-                grid-area: 4/1/5/3;
-            }
-
-            .icon {
-                width: 32px;
-                height: 32px;
-            }
-
-            //按比例逐渐加深键盘颜色
-            $bg: #f2f2f2;
-
-            &:nth-child(1) {
-                background: $bg;
-            }
-
-            &:nth-child(2),
-            &:nth-child(5) {
-                background: darken($bg, 4%);
-            }
-
-            &:nth-child(3),
-            &:nth-child(6),
-            &:nth-child(9) {
-                background: darken($bg, 4 * 2%);
-            }
-
-            &:nth-child(7),
-            &:nth-child(10) {
-                background: darken($bg, 4 * 3%);
-            }
-
-            &:nth-child(4),
-            &:nth-child(11),
-            &:nth-child(12) {
-                background: darken($bg, 4 * 4%);
-            }
-
-            &:nth-child(13) {
-                background: darken($bg, 4 * 5%);
-            }
-
-            &:nth-child(8) {
-                background: darken($bg, 4 * 6%);
-            }
-        }
+      &.empty::after {
+        //div模拟placeholder占位符
+        content: '输入记账金额';
+        color: #999;
+        font-family: -apple-system;
+      }
     }
+  }
+
+  > .buttons {
+    display: grid;
+    grid: 25% 25% 25% 25%/25% 25% 25% 25%;
+    height: 30vh;
+
+    > button {
+      border: none;
+      margin: 1px;
+      background: transparent;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &.delete {
+        grid-area: 1/4/3/5;
+        font-size: 28px;
+      }
+
+      &.ok {
+        grid-area: 3/4/5/5;
+        font-size: 28px;
+      }
+
+      &.zero {
+        grid-area: 4/1/5/3;
+      }
+
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      //按比例逐渐加深键盘颜色
+      $bg: #f2f2f2;
+
+      &:nth-child(1) {
+        background: $bg;
+      }
+
+      &:nth-child(2),
+      &:nth-child(5) {
+        background: darken($bg, 4%);
+      }
+
+      &:nth-child(3),
+      &:nth-child(6),
+      &:nth-child(9) {
+        background: darken($bg, 4 * 2%);
+      }
+
+      &:nth-child(7),
+      &:nth-child(10) {
+        background: darken($bg, 4 * 3%);
+      }
+
+      &:nth-child(4),
+      &:nth-child(11),
+      &:nth-child(12) {
+        background: darken($bg, 4 * 4%);
+      }
+
+      &:nth-child(13) {
+        background: darken($bg, 4 * 5%);
+      }
+
+      &:nth-child(8) {
+        background: darken($bg, 4 * 6%);
+      }
+    }
+  }
 }

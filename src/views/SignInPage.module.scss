@@ -1,18 +1,18 @@
 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 42px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 42px 0 0 0;
 
-    .icon {
-        width: 96px;
-        height: 96px;
-    }
+  .icon {
+    width: 96px;
+    height: 96px;
+  }
 
-    .appName {
-        color: var(--button-bg);
-        font-weight: bold;
-        font-size: 32px;
-    }
+  .appName {
+    color: var(--button-bg);
+    font-weight: bold;
+    font-size: 32px;
+  }
 }

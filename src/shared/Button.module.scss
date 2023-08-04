@@ -1,24 +1,26 @@
 .button {
-    // border: 1px solid var(--button-bg);
-    border: none;
-    font-size: 18px;
-    padding: 8px 16px;
-    background: var(--button-bg);
-    color: var(--button-text);
-    border-radius: 8px;
-    height: 48px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  // border: 1px solid var(--button-bg);
+  border: none;
+  font-size: 18px;
+  padding: 8px 16px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-radius: 8px;
+  height: 48px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 
-    &.normal {}
+  &.normal {
+  }
 
-    &.important {}
+  &.important {
+  }
 
-    &.danger {
-        background: red;
-    }
+  &.danger {
+    background: red;
+  }
 
-    &[disabled] {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

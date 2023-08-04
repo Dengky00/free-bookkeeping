@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import style from './welcome.module.scss';
+import { defineComponent } from 'vue'
+import style from './welcome.module.scss'
 
 export const Third = defineComponent({
   setup: () => {
@@ -14,6 +14,6 @@ export const Third = defineComponent({
           收支一目了然
         </h2>
       </div>
-    );
+    )
   },
-});
+})

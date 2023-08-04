@@ -1,7 +1,7 @@
-import { Dayjs } from 'dayjs';
-import style from './ItemSummary.module.scss';
-import { defineComponent, PropType } from 'vue';
-import { FloatButton } from '../../shared/FloatButton';
+import { Dayjs } from 'dayjs'
+import style from './ItemSummary.module.scss'
+import { defineComponent, PropType } from 'vue'
+import { FloatButton } from '../../shared/FloatButton'
 
 export const ItemSummary = defineComponent({
   props: {
@@ -106,6 +106,6 @@ export const ItemSummary = defineComponent({
         <div class={style.more}>向下滑动加载更多</div>
         <FloatButton iconName="add" />
       </div>
-    );
+    )
   },
-});
+})

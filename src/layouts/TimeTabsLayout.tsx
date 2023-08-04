@@ -1,11 +1,11 @@
-import style from './TimeTabsLayout.module.scss';
-import dayjs, { Dayjs } from 'dayjs';
-import { PropType, computed, defineComponent, ref } from 'vue';
-import { Overlay } from 'vant';
-import { MainLayout } from './MainLayout';
-import { OverLayIcon } from '../shared/OverLay';
-import { Tab, Tabs } from '../shared/Tabs';
-import { Form, FormItem } from '../shared/Form';
+import style from './TimeTabsLayout.module.scss'
+import dayjs, { Dayjs } from 'dayjs'
+import { PropType, computed, defineComponent, ref } from 'vue'
+import { Overlay } from 'vant'
+import { MainLayout } from './MainLayout'
+import { OverLayIcon } from '../shared/OverLay'
+import { Tab, Tabs } from '../shared/Tabs'
+import { Form, FormItem } from '../shared/Form'
 
 const demo = defineComponent({
   props: {
@@ -18,7 +18,7 @@ const demo = defineComponent({
       required: true,
     },
   },
-});
+})
 export const TimeTabsLayout = defineComponent({
   props: {
     component: {
@@ -28,7 +28,7 @@ export const TimeTabsLayout = defineComponent({
     },
   },
   setup: (props, context) => {
-    const refSelected = ref('本月');
+    const refSelected = ref('本月')
     const timeList = {
       thisMonth: {
         start: dayjs().startOf('month'),
@@ -39,17 +39,17 @@ export const TimeTabsLayout = defineComponent({
         end: dayjs().subtract(1, 'month').endOf('month'),
       },
       thisYear: { start: dayjs().startOf('year'), end: dayjs().endOf('year') },
-    };
+    }
     const startVant = ref([
       dayjs().format('YYYY'),
       dayjs().format('MM'),
       dayjs().format('DD'),
-    ]);
+    ])
     const endVant = ref([
       dayjs().format('YYYY'),
       dayjs().format('MM'),
       dayjs().format('DD'),
-    ]);
+    ])
     const customTime = computed(() => {
       return {
         start: dayjs(
@@ -62,18 +62,18 @@ export const TimeTabsLayout = defineComponent({
         end: dayjs(
           endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2],
         ),
-      };
-    });
-    const refOverlayVisible = ref(false);
+      }
+    })
+    const refOverlayVisible = ref(false)
     const showOverlay = () => {
       if (refSelected.value === '自定义时间') {
-        refOverlayVisible.value = true;
+        refOverlayVisible.value = true
       }
-    };
+    }
     const onSubmitCustomTime = (e: Event) => {
-      e.preventDefault();
-      refOverlayVisible.value = false;
-    };
+      e.preventDefault()
+      refOverlayVisible.value = false
+    }
 
     return () => (
       <MainLayout>
@@ -145,6 +145,6 @@ export const TimeTabsLayout = defineComponent({
           ),
         }}
       </MainLayout>
-    );
+    )
   },
-});
+})

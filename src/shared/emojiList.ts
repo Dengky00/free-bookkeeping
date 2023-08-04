@@ -1,4 +1,4 @@
-type EmojiList = [string, string[]][];
+type EmojiList = [string, string[]][]
 export const emojiList: EmojiList = [
   [
     'face-smiling',
@@ -2129,4 +2129,4 @@ export const emojiList: EmojiList = [
       '\u{1F3F4} \u{E0067} \u{E0062} \u{E0077} \u{E006C} \u{E0073} \u{E007F}',
     ],
   ],
-];
+]

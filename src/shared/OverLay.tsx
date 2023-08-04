@@ -1,7 +1,7 @@
-import { Transition, defineComponent, ref } from 'vue';
-import { RouterLink } from 'vue-router';
-import style from './Overlay.module.scss';
-import { Icon } from './Icon';
+import { Transition, defineComponent, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import style from './Overlay.module.scss'
+import { Icon } from './Icon'
 
 export const OverLay = defineComponent({
   setup: (props, context) => {
@@ -34,16 +34,16 @@ export const OverLay = defineComponent({
           </ul>
         </nav>
       </div>
-    );
+    )
   },
-});
+})
 
 export const OverLayIcon = defineComponent({
   setup: (props, context) => {
-    const overlayVisible = ref(false);
+    const overlayVisible = ref(false)
     const onClickMenu = () => {
-      overlayVisible.value = !overlayVisible.value;
-    };
+      overlayVisible.value = !overlayVisible.value
+    }
     return () => (
       <>
         <Icon name="menu" onClick={onClickMenu} />
@@ -56,6 +56,6 @@ export const OverLayIcon = defineComponent({
           {overlayVisible.value && <OverLay />}
         </Transition>
       </>
-    );
+    )
   },
-});
+})

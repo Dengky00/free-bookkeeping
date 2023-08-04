@@ -1,5 +1,5 @@
-import { PropType, computed, defineComponent, ref } from 'vue';
-import style from './Button.module.scss';
+import { PropType, computed, defineComponent, ref } from 'vue'
+import style from './Button.module.scss'
 
 // interface Props {//告诉typescript可接受的外部属性声明,通过代码检查不报错
 //     onClick?: (e: MouseEvent) => void
@@ -28,26 +28,26 @@ export const Button = defineComponent({
     },
   },
   setup: (props, context) => {
-    const selfDisabled = ref(false);
+    const selfDisabled = ref(false)
     const _disabled = computed(() => {
       if (props.autoSelfDisabled === false) {
         //外部是否要求自我沉默
-        return props.disabled;
+        return props.disabled
       }
       if (selfDisabled.value) {
         //先判断自我沉默
-        return true;
+        return true
       } else {
-        return props.disabled; //再判断外部是否要求沉默
+        return props.disabled //再判断外部是否要求沉默
       }
-    });
+    })
     const onClick = (e: MouseEvent) => {
-      props.onClick?.(e);
-      selfDisabled.value = true;
+      props.onClick?.(e)
+      selfDisabled.value = true
       setTimeout(() => {
-        selfDisabled.value = false;
-      }, 500); //按钮点击后自我沉默0.5秒
-    };
+        selfDisabled.value = false
+      }, 500) //按钮点击后自我沉默0.5秒
+    }
     return () => (
       <button
         onClick={onClick}
@@ -57,6 +57,6 @@ export const Button = defineComponent({
       >
         {context.slots.default?.()}
       </button>
-    );
+    )
   },
-});
+})

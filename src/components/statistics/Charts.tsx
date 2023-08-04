@@ -1,10 +1,10 @@
-import { PropType, defineComponent, onMounted, ref } from 'vue';
-import style from './Charts.module.scss';
-import { Dayjs } from 'dayjs';
-import * as echarts from 'echarts';
-import { LineChart } from './LineChart';
-import { PieChart } from './PieChart';
-import { Bars } from './Bars';
+import { PropType, defineComponent, onMounted, ref } from 'vue'
+import style from './Charts.module.scss'
+import { Dayjs } from 'dayjs'
+import * as echarts from 'echarts'
+import { LineChart } from './LineChart'
+import { PieChart } from './PieChart'
+import { Bars } from './Bars'
 
 export const Charts = defineComponent({
   props: {
@@ -18,7 +18,7 @@ export const Charts = defineComponent({
     },
   },
   setup: (props, context) => {
-    const category = ref('expense');
+    const category = ref('expense')
     return () => (
       <div class={style.wrapper}>
         <div class={style.select}>
@@ -49,6 +49,6 @@ export const Charts = defineComponent({
         <PieChart />
         <Bars />
       </div>
-    );
+    )
   },
-});
+})

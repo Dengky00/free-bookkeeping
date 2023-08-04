@@ -1,4 +1,4 @@
-import { PropType, defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue'
 
 export const Icon = defineComponent({
   props: {
@@ -15,6 +15,6 @@ export const Icon = defineComponent({
       <svg onClick={props.onClick}>
         <use xlinkHref={'#' + props.name}></use>
       </svg>
-    );
+    )
   },
-});
+})

@@ -1,12 +1,12 @@
-import { defineComponent } from 'vue';
-import style from './StartPage.module.scss';
-import { Button } from '../shared/Button';
-import { FloatButton } from '../shared/FloatButton';
-import { Center } from '../shared/Center';
-import { Icon } from '../shared/Icon';
-import { OverLayIcon } from '../shared/OverLay';
-import { RouterLink } from 'vue-router';
-import { MainLayout } from '../layouts/MainLayout';
+import { defineComponent } from 'vue'
+import style from './StartPage.module.scss'
+import { Button } from '../shared/Button'
+import { FloatButton } from '../shared/FloatButton'
+import { Center } from '../shared/Center'
+import { Icon } from '../shared/Icon'
+import { OverLayIcon } from '../shared/OverLay'
+import { RouterLink } from 'vue-router'
+import { MainLayout } from '../layouts/MainLayout'
 
 export const StartPage = defineComponent({
   setup: (props, context) => {
@@ -32,6 +32,6 @@ export const StartPage = defineComponent({
           ),
         }}
       </MainLayout>
-    );
+    )
   },
-});
+})

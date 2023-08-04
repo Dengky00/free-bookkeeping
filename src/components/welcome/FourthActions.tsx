@@ -1,6 +1,6 @@
-import { SkipFeatures } from '../../shared/SkipFeatures';
-import style from './welcome.module.scss';
-import { RouterLink } from 'vue-router';
+import { SkipFeatures } from '../../shared/SkipFeatures'
+import style from './welcome.module.scss'
+import { RouterLink } from 'vue-router'
 
 export const FourthActions = () => (
   <div class={style.actions}>
@@ -12,6 +12,6 @@ export const FourthActions = () => (
     </RouterLink>
     <SkipFeatures class={style.fake} />
   </div>
-);
+)
 
-FourthActions.displayName = 'FourthActions';
+FourthActions.displayName = 'FourthActions'

@@ -1,19 +1,19 @@
-import { AxiosResponse } from 'axios';
-import { httpClient } from './HttpClient';
+import { AxiosResponse } from 'axios'
+import { httpClient } from './HttpClient'
 
 export let mePromise:
   | Promise<
       AxiosResponse<{
         resource: {
-          id: number;
-        };
+          id: number
+        }
       }>
     >
-  | undefined;
+  | undefined
 
 export const refreshMe = () => {
-  mePromise = httpClient.get<{ resource: { id: number } }>('/me');
-  return mePromise;
-};
+  mePromise = httpClient.get<{ resource: { id: number } }>('/me')
+  return mePromise
+}
 
-export const fetchMe = refreshMe;
+export const fetchMe = refreshMe

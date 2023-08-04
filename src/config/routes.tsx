@@ -1,22 +1,22 @@
-import { RouteRecordRaw } from 'vue-router';
-import { Welcome } from '../views/Welcome';
-import { First } from '../components/welcome/First';
-import { Second } from '../components/welcome/Second';
-import { Third } from '../components/welcome/Third';
-import { Fourth } from '../components/welcome/Fourth';
-import { FirstActions } from '../components/welcome/FirstActions';
-import { SecondActions } from '../components/welcome/SecondActions';
-import { ThirdActions } from '../components/welcome/ThirdActions';
-import { FourthActions } from '../components/welcome/FourthActions';
-import { StartPage } from '../views/StartPage';
-import { ItemPage } from '../views/ItemPage';
-import { ItemList } from '../components/item/ItemList';
-import { ItemCreate } from '../components/item/ItemCreate';
-import { TagPage } from '../views/TagPage';
-import { TagCreate } from '../components/tag/TagCreate';
-import { TagEdit } from '../components/tag/TagEdit';
-import { SignInPage } from '../views/SignInPage';
-import { StatisticsPage } from '../views/StatisticsPage';
+import { RouteRecordRaw } from 'vue-router'
+import { Welcome } from '../views/Welcome'
+import { First } from '../components/welcome/First'
+import { Second } from '../components/welcome/Second'
+import { Third } from '../components/welcome/Third'
+import { Fourth } from '../components/welcome/Fourth'
+import { FirstActions } from '../components/welcome/FirstActions'
+import { SecondActions } from '../components/welcome/SecondActions'
+import { ThirdActions } from '../components/welcome/ThirdActions'
+import { FourthActions } from '../components/welcome/FourthActions'
+import { StartPage } from '../views/StartPage'
+import { ItemPage } from '../views/ItemPage'
+import { ItemList } from '../components/item/ItemList'
+import { ItemCreate } from '../components/item/ItemCreate'
+import { TagPage } from '../views/TagPage'
+import { TagCreate } from '../components/tag/TagCreate'
+import { TagEdit } from '../components/tag/TagEdit'
+import { SignInPage } from '../views/SignInPage'
+import { StatisticsPage } from '../views/StatisticsPage'
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
@@ -24,7 +24,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/welcome',
     component: Welcome,
     beforeEnter: (to, from, next) => {
-      localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next();
+      localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()
     },
     children: [
       { path: '', redirect: '/welcome/1' },
@@ -70,4 +70,4 @@ export const routes: RouteRecordRaw[] = [
   },
   { path: '/sign_in', component: SignInPage },
   { path: '/statistics', component: StatisticsPage },
-];
+]

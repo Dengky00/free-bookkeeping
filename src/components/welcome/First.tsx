@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import style from './welcome.module.scss';
+import { defineComponent } from 'vue'
+import style from './welcome.module.scss'
 
 export const First = defineComponent({
   setup: () => {
@@ -14,6 +14,6 @@ export const First = defineComponent({
           还会省钱
         </h2>
       </div>
-    );
+    )
   },
-});
+})

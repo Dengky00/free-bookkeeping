@@ -1,5 +1,5 @@
-import { defineComponent, PropType } from 'vue';
-import { RouterView } from 'vue-router';
+import { defineComponent, PropType } from 'vue'
+import { RouterView } from 'vue-router'
 
 export const ItemPage = defineComponent({
   props: {
@@ -8,6 +8,6 @@ export const ItemPage = defineComponent({
     },
   },
   setup: (props, context) => {
-    return () => <RouterView></RouterView>;
+    return () => <RouterView></RouterView>
   },
-});
+})

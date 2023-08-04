@@ -1,16 +1,16 @@
-import { defineComponent, onMounted, ref } from 'vue';
-import style from './LineChart.module.scss';
-import * as echarts from 'echarts';
+import { defineComponent, onMounted, ref } from 'vue'
+import style from './LineChart.module.scss'
+import * as echarts from 'echarts'
 
 export const LineChart = defineComponent({
   setup: (props, context) => {
-    const refDiv = ref<HTMLDivElement>();
+    const refDiv = ref<HTMLDivElement>()
     onMounted(() => {
       if (!refDiv.value) {
-        return;
+        return
       }
       // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(refDiv.value);
+      var myChart = echarts.init(refDiv.value)
       // 绘制图表
       myChart.setOption({
         grid: [{ left: 0, top: 0, right: 0, bottom: 20 }],
@@ -27,8 +27,8 @@ export const LineChart = defineComponent({
             type: 'line',
           },
         ],
-      });
-    });
-    return () => <div ref={refDiv} class={style.wrapper}></div>;
+      })
+    })
+    return () => <div ref={refDiv} class={style.wrapper}></div>
   },
-});
+})

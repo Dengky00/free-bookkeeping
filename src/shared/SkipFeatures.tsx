@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import { RouterLink } from 'vue-router';
+import { defineComponent } from 'vue'
+import { RouterLink } from 'vue-router'
 
 export const SkipFeatures = defineComponent({
   // props: {
@@ -16,6 +16,6 @@ export const SkipFeatures = defineComponent({
           跳过
         </span>
       </RouterLink>
-    );
+    )
   },
-});
+})

@@ -1,5 +1,5 @@
-import { defineComponent } from 'vue';
-import style from './welcome.module.scss';
+import { defineComponent } from 'vue'
+import style from './welcome.module.scss'
 
 export const Fourth = defineComponent({
   setup: () => {
@@ -14,6 +14,6 @@ export const Fourth = defineComponent({
           再也不怕数据丢失
         </h2>
       </div>
-    );
+    )
   },
-});
+})

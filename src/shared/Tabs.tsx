@@ -1,5 +1,5 @@
-import { defineComponent, PropType } from 'vue';
-import style from './Tabs.module.scss';
+import { defineComponent, PropType } from 'vue'
+import style from './Tabs.module.scss'
 
 export const Tabs = defineComponent({
   props: {
@@ -13,13 +13,13 @@ export const Tabs = defineComponent({
   emits: ['update:selected'],
   setup: (props, context) => {
     return () => {
-      const tabs = context.slots.default?.();
+      const tabs = context.slots.default?.()
       if (!tabs) {
-        return null;
+        return null
       }
       for (let i = 0; i < tabs.length; i++) {
         if (tabs[i].type !== Tab) {
-          throw new Error('<Tabs> only accepts <Tab> as children');
+          throw new Error('<Tabs> only accepts <Tab> as children')
         }
       }
       return (
@@ -34,7 +34,7 @@ export const Tabs = defineComponent({
                   props.classPrefix + '_tabs_nav_item',
                 ]}
                 onClick={() => {
-                  context.emit('update:selected', item.props?.name);
+                  context.emit('update:selected', item.props?.name)
                 }}
               >
                 {item.props?.name}
@@ -47,10 +47,10 @@ export const Tabs = defineComponent({
             ))}
           </div>
         </div>
-      );
-    };
+      )
+    }
   },
-});
+})
 
 export const Tab = defineComponent({
   props: {
@@ -59,6 +59,6 @@ export const Tab = defineComponent({
     },
   },
   setup: (props, context) => {
-    return () => <div>{context.slots.default?.()}</div>;
+    return () => <div>{context.slots.default?.()}</div>
   },
-});
+})

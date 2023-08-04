@@ -1,15 +1,15 @@
-import { defineComponent, PropType, reactive, ref } from 'vue';
-import style from './SignInPage.module.scss';
-import { MainLayout } from '../layouts/MainLayout';
-import { Icon } from '../shared/Icon';
-import { Form, FormItem } from '../shared/Form';
-import { Button } from '../shared/Button';
-import { hasError, Rules, validate } from '../shared/validate';
-import { httpClient } from '../shared/HttpClient';
-import { useBool } from '../hooks/useBool';
-import { useRoute, useRouter } from 'vue-router';
-import { refreshMe } from '../shared/me';
-import { BackIcon } from '../shared/BackIcon';
+import { defineComponent, PropType, reactive, ref } from 'vue'
+import style from './SignInPage.module.scss'
+import { MainLayout } from '../layouts/MainLayout'
+import { Icon } from '../shared/Icon'
+import { Form, FormItem } from '../shared/Form'
+import { Button } from '../shared/Button'
+import { hasError, Rules, validate } from '../shared/validate'
+import { httpClient } from '../shared/HttpClient'
+import { useBool } from '../hooks/useBool'
+import { useRoute, useRouter } from 'vue-router'
+import { refreshMe } from '../shared/me'
+import { BackIcon } from '../shared/BackIcon'
 
 export const SignInPage = defineComponent({
   props: {
@@ -18,27 +18,27 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
-    const router = useRouter();
-    const route = useRoute();
-    const refValidationCode = ref<any>();
+    const router = useRouter()
+    const route = useRoute()
+    const refValidationCode = ref<any>()
     // const refValidationCodeDisabled = ref(false)
     const {
       ref: refDisabled,
       toggle,
       on: disabled,
       off: enable,
-    } = useBool(false);
+    } = useBool(false)
     const formData = reactive({
       email: 'dengky72@qq.com',
       code: '',
-    });
-    const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
+    })
+    const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
     // const errors = reactive({
     //     email: undefined,
     //     code: undefined,
     // })
     const onSubmit = async (e: Event) => {
-      e.preventDefault();
+      e.preventDefault()
       const rules: Rules<typeof formData> = [
         { key: 'email', type: 'required', message: '必填' },
         {
@@ -48,12 +48,12 @@ export const SignInPage = defineComponent({
           message: '必须是邮箱地址',
         },
         { key: 'code', type: 'required', message: '必填' },
-      ];
+      ]
       Object.assign(errors, {
         email: undefined,
         code: undefined,
-      });
-      Object.assign(errors, validate(formData, rules));
+      })
+      Object.assign(errors, validate(formData, rules))
       if (!hasError(errors)) {
         //不存在验证错误即可登录
         const response = await httpClient
@@ -62,33 +62,33 @@ export const SignInPage = defineComponent({
             formData,
             // {params: { _mock: 'session' }}
           )
-          .catch(onError);
-        localStorage.setItem('jwt', response.data.jwt);
+          .catch(onError)
+        localStorage.setItem('jwt', response.data.jwt)
         // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
-        const returnTo = route.query.return_to?.toString();
+        const returnTo = route.query.return_to?.toString()
         // const returnTo = localStorage.getItem('returnTo')//从localStorage读取登录后要返回的地址
-        refreshMe();
-        router.push(returnTo || '/');
+        refreshMe()
+        router.push(returnTo || '/')
       }
-    };
+    }
     const onError = (error: any) => {
       if (error.response.status === 422) {
-        Object.assign(errors, error.response.data.errors);
+        Object.assign(errors, error.response.data.errors)
       }
-      throw error;
-    };
+      throw error
+    }
     const onClickSendValidationCode = async () => {
       //点击发送验证码
-      disabled(); //在完成网络请求回应之前无法点击
+      disabled() //在完成网络请求回应之前无法点击
       // refValidationCodeDisabled.value = true
       const response = await httpClient
         .post('/validation_codes', { email: formData.email })
         .catch(onError)
-        .finally(enable);
+        .finally(enable)
       //成功
-      console.log(response);
-      refValidationCode.value.startCount();
-    };
+      console.log(response)
+      refValidationCode.value.startCount()
+    }
     return () => (
       <MainLayout>
         {{
@@ -126,6 +126,6 @@ export const SignInPage = defineComponent({
           ),
         }}
       </MainLayout>
-    );
+    )
   },
-});
+})

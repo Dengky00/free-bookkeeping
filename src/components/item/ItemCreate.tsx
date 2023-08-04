@@ -1,14 +1,14 @@
-import { defineComponent, reactive } from 'vue';
-import style from './ItemCreate.module.scss';
-import { MainLayout } from '../../layouts/MainLayout';
-import { Tab, Tabs } from '../../shared/Tabs';
-import { InputPad } from './InputPad';
-import { Tags } from './Tags';
-import { httpClient } from '../../shared/HttpClient';
-import { useRouter } from 'vue-router';
-import { Dialog } from 'vant';
-import { AxiosError } from 'axios';
-import { BackIcon } from '../../shared/BackIcon';
+import { defineComponent, reactive } from 'vue'
+import style from './ItemCreate.module.scss'
+import { MainLayout } from '../../layouts/MainLayout'
+import { Tab, Tabs } from '../../shared/Tabs'
+import { InputPad } from './InputPad'
+import { Tags } from './Tags'
+import { httpClient } from '../../shared/HttpClient'
+import { useRouter } from 'vue-router'
+import { showDialog } from 'vant'
+import { AxiosError } from 'axios'
+import { BackIcon } from '../../shared/BackIcon'
 
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
@@ -17,29 +17,29 @@ export const ItemCreate = defineComponent({
       tags_id: [],
       amount: '',
       happen_at: '',
-    });
-    const router = useRouter();
+    })
+    const router = useRouter()
     const onError = (error: AxiosError<ResourceError>) => {
       if (error.response?.status === 422) {
-        Dialog.alert({
+        showDialog({
           title: '出错',
           message: Object.values(error.response.data.errors).join('\n'),
-        });
+        })
       }
-      throw error;
-    };
+      throw error
+    }
     const onSubmit = async () => {
       if (formData.tags_id.length !== 0) {
         await httpClient
           .post<Resource<Item>>('/items', formData, {
             params: { _mock: 'itemCreate' },
           })
-          .catch(onError);
-        router.push('/items');
+          .catch(onError)
+        router.push('/items')
       } else {
-        alert('未选择标签');
+        alert('未选择标签')
       }
-    };
+    }
 
     return () => (
       <MainLayout class={style.layout}>
@@ -75,6 +75,6 @@ export const ItemCreate = defineComponent({
           ),
         }}
       </MainLayout>
-    );
+    )
   },
-});
+})

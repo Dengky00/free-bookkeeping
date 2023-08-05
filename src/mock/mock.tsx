@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker'
 import { AxiosRequestConfig } from 'axios'
 
 type Mock = (config: AxiosRequestConfig) => [number, any]
-
 faker.setLocale('zh_CN')
+
 //模拟登录
 export const mockSession: Mock = (config) => {
   return [
@@ -13,12 +13,35 @@ export const mockSession: Mock = (config) => {
     },
   ]
 }
-//模拟已创建的记账标签
+
+//模拟编辑已存在的标签信息
+export const mockTagShow: Mock = (config) => {
+  const createTag = (attrs?: any) => ({
+    id: createId(),
+    name: faker.lorem.word(),
+    sign: faker.internet.emoji(),
+    ...attrs,
+  })
+  return [200, { resource: createTag() }]
+}
+
+//模拟提交编辑完成的标签信息
+export const mockTagEdit: Mock = (config) => {
+  const createTag = (attrs?: any) => ({
+    id: createId(),
+    name: faker.lorem.word(),
+    sign: faker.internet.emoji(),
+    ...attrs,
+  })
+  return [200, { resource: createTag() }]
+}
+
 let id = 0 //tagId
 const createId = () => {
   id += 1
   return id
 }
+//模拟已创建的记账标签
 export const mockTagIndex: Mock = (config) => {
   const { kind, page } = config.params
   const per_page = 25
@@ -32,7 +55,6 @@ export const mockTagIndex: Mock = (config) => {
     resources: createTag(n),
     pager: createPaper(page),
   })
-
   //随机生成标签,模拟服务器数据
   const createTag = (n = 1, attrs?: any) =>
     Array.from({ length: n }).map(() => ({
@@ -42,7 +64,6 @@ export const mockTagIndex: Mock = (config) => {
       kind: config.params.kind,
       ...attrs,
     }))
-
   if (kind === 'expense' && (!page || page === 1)) {
     return [200, createBody(25)]
   } else if (kind === 'expense' && page === 2) {
@@ -53,6 +74,7 @@ export const mockTagIndex: Mock = (config) => {
     return [200, createBody(1)]
   }
 }
+
 //模拟提交记账数据
 export const mockItemCreate: Mock = (config) => {
   return [
@@ -72,23 +94,35 @@ export const mockItemCreate: Mock = (config) => {
     },
   ]
 }
-//模拟编辑已存在的标签
-export const mockTagShow: Mock = (config) => {
-  const createTag = (attrs?: any) => ({
-    id: createId(),
-    name: faker.lorem.word(),
-    sign: faker.internet.emoji(),
-    ...attrs,
+
+//模拟读取记账记录
+export const mockItemIndex: Mock = (config) => {
+  const { kind, page } = config.params
+  const per_page = 25
+  const count = 26
+  const createPaper = (page = 1) => ({
+    page,
+    per_page,
+    count,
   })
-  return [200, { resource: createTag() }]
-}
-//模拟提交编辑完成的标签
-export const mockTagEdit: Mock = (config) => {
-  const createTag = (attrs?: any) => ({
-    id: createId(),
-    name: faker.lorem.word(),
-    sign: faker.internet.emoji(),
-    ...attrs,
+  const createItem = (n = 1, attrs?: any) =>
+    Array.from({ length: n }).map(() => ({
+      id: createId(),
+      user_id: createId(),
+      amount: Math.floor(Math.random() * 10000),
+      tags_id: [createId()],
+      happen_at: faker.date.past().toISOString(),
+      kind: config.params.kind,
+    }))
+  const createBody = (n = 1, attrs?: any) => ({
+    resources: createItem(n),
+    pager: createPaper(page),
   })
-  return [200, { resource: createTag() }]
+  if (!page || page === 1) {
+    return [200, createBody(25)]
+  } else if (page === 2) {
+    return [200, createBody(1)]
+  } else {
+    return [200, {}]
+  }
 }

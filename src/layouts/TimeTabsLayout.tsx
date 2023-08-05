@@ -1,6 +1,6 @@
 import style from './TimeTabsLayout.module.scss'
 import dayjs, { Dayjs } from 'dayjs'
-import { PropType, computed, defineComponent, ref } from 'vue'
+import { PropType, computed, defineComponent, onMounted, ref } from 'vue'
 import { Overlay } from 'vant'
 import { MainLayout } from './MainLayout'
 import { OverLayIcon } from '../shared/OverLay'
@@ -22,7 +22,7 @@ const demo = defineComponent({
 export const TimeTabsLayout = defineComponent({
   props: {
     component: {
-      //规定从外部获取的组件类型
+      //外部属性是一个组,件规定组件类型
       type: Object as PropType<typeof demo>,
       required: true,
     },
@@ -74,6 +74,10 @@ export const TimeTabsLayout = defineComponent({
       e.preventDefault()
       refOverlayVisible.value = false
     }
+    onMounted(() => {
+      console.log('t', timeList.thisMonth.start)
+      console.log('tt', customTime.value.start)
+    })
 
     return () => (
       <MainLayout>

@@ -54,6 +54,7 @@ export const TagForm = defineComponent({
         router.back()
       }
     }
+    //判断是编辑标签页面,则渲染已要编辑的标签信息
     onMounted(async () => {
       if (!props.id) {
         return

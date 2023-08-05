@@ -35,7 +35,6 @@ export const FormItem = defineComponent({
       default: 60,
     },
     disabled: Boolean,
-    // options: Array as PropType<Array<{ value: string, text: string }>>
   },
   setup: (props, context) => {
     const timer = ref<number>()
@@ -62,9 +61,13 @@ export const FormItem = defineComponent({
     }
     const vantDate = ref(props.modelValue)
     const showDate = computed(() => {
-      if (vantDate.value instanceof Array) {
+      if (props.modelValue instanceof Array) {
         return (
-          vantDate.value[0] + '-' + vantDate.value[1] + '-' + vantDate.value[2]
+          props.modelValue[0] +
+          '-' +
+          props.modelValue[1] +
+          '-' +
+          props.modelValue[2]
         )
       } else {
         return ''
@@ -145,14 +148,6 @@ export const FormItem = defineComponent({
               </Button>
             </>
           )
-        // case 'select'://下拉框表单
-        //     return <select value={props.modelValue}
-        //         class={[style.formItem, style.select]}
-        //         onChange={(e: any) => { context.emit('update:modelValue', e.target.value) }}>
-        //         {props.options?.map(option =>
-        //             <option value={option.value}>{option.text}</option>
-        //         )}
-        //     </select>
         case undefined:
           return context.slots.default?.()
       }

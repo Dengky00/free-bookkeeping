@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs'
 import style from './ItemSummary.module.scss'
-import { defineComponent, onMounted, PropType, reactive, ref } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, ref, watch } from 'vue'
 import { FloatButton } from '../../shared/FloatButton'
 import { httpClient } from '../../shared/HttpClient'
 import { Button } from '../../shared/Button'
@@ -37,13 +37,14 @@ export const ItemSummary = defineComponent({
       page.value += 1
     }
     onMounted(fetchItems)
+
     //请求收支总情况
     const itemsBalance = reactive({
       expenses: 0,
       income: 0,
       balance: 0,
     })
-    onMounted(async () => {
+    const fetchItemsBalance = async () => {
       const response = await httpClient.get('/items/balance', {
         happen_after: props.startDate,
         happen_before: props.endDate,
@@ -51,7 +52,25 @@ export const ItemSummary = defineComponent({
         _mock: 'itemIndexBalance',
       })
       Object.assign(itemsBalance, response.data)
-    })
+    }
+    onMounted(fetchItemsBalance)
+
+    //请求自定义时间范围内记账记录
+    watch(
+      () => [props.startDate, props.endDate],
+      () => {
+        items.value = []
+        hasMore.value = false
+        page.value = 0
+        fetchItems()
+        Object.assign(itemsBalance, {
+          expenses: 0,
+          income: 0,
+          balance: 0,
+        })
+        fetchItemsBalance()
+      },
+    )
 
     return () => (
       <div class={style.wrapper}>

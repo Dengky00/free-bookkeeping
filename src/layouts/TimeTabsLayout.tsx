@@ -1,6 +1,13 @@
 import style from './TimeTabsLayout.module.scss'
 import dayjs, { Dayjs } from 'dayjs'
-import { PropType, computed, defineComponent, onMounted, ref } from 'vue'
+import {
+  PropType,
+  computed,
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+} from 'vue'
 import { Overlay } from 'vant'
 import { MainLayout } from './MainLayout'
 import { OverLayIcon } from '../shared/OverLay'
@@ -50,8 +57,40 @@ export const TimeTabsLayout = defineComponent({
       dayjs().format('MM'),
       dayjs().format('DD'),
     ])
-    const customTime = computed(() => {
-      return {
+    //用于存储用户为点击取消确认时的临时时间
+    let tempTime = {
+      startVant: [
+        dayjs().format('YYYY'),
+        dayjs().format('MM'),
+        dayjs().format('DD'),
+      ],
+      endVant: [
+        dayjs().format('YYYY'),
+        dayjs().format('MM'),
+        dayjs().format('DD'),
+      ],
+    }
+    const customTime = reactive({
+      start: dayjs(),
+      end: dayjs(),
+    })
+    const refOverlayVisible = ref(false)
+    const showOverlay = () => {
+      if (refSelected.value === '自定义时间') {
+        refOverlayVisible.value = true
+      }
+    }
+    const onCancel = () => {
+      startVant.value = tempTime.startVant
+      endVant.value = tempTime.endVant
+      refOverlayVisible.value = false
+      console.log('cancel', startVant.value, tempTime.startVant)
+    }
+    const onSubmitCustomTime = (e: Event) => {
+      e.preventDefault()
+      tempTime.startVant = startVant.value
+      tempTime.endVant = endVant.value
+      Object.assign(customTime, {
         start: dayjs(
           startVant.value[0] +
             '-' +
@@ -62,22 +101,9 @@ export const TimeTabsLayout = defineComponent({
         end: dayjs(
           endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2],
         ),
-      }
-    })
-    const refOverlayVisible = ref(false)
-    const showOverlay = () => {
-      if (refSelected.value === '自定义时间') {
-        refOverlayVisible.value = true
-      }
-    }
-    const onSubmitCustomTime = (e: Event) => {
-      e.preventDefault()
+      })
       refOverlayVisible.value = false
     }
-    onMounted(() => {
-      console.log('t', timeList.thisMonth.start)
-      console.log('tt', customTime.value.start)
-    })
 
     return () => (
       <MainLayout>
@@ -110,8 +136,8 @@ export const TimeTabsLayout = defineComponent({
                 </Tab>
                 <Tab name="自定义时间">
                   <props.component
-                    startDate={customTime.value.start}
-                    endDate={customTime.value.end}
+                    startDate={customTime.start}
+                    endDate={customTime.end}
                   />
                 </Tab>
               </Tabs>
@@ -132,10 +158,7 @@ export const TimeTabsLayout = defineComponent({
                       />
                       <FormItem>
                         <div class={style.actions}>
-                          <button
-                            type="button"
-                            onClick={() => (refOverlayVisible.value = false)}
-                          >
+                          <button type="button" onClick={onCancel}>
                             取消
                           </button>
                           <button type="submit">确认</button>

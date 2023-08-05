@@ -1,9 +1,11 @@
 import { Dayjs } from 'dayjs'
 import style from './ItemSummary.module.scss'
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, ref } from 'vue'
 import { FloatButton } from '../../shared/FloatButton'
 import { httpClient } from '../../shared/HttpClient'
 import { Button } from '../../shared/Button'
+import { Money } from '../../shared/Money'
+import dayjs from 'dayjs'
 
 export const ItemSummary = defineComponent({
   props: {
@@ -17,6 +19,7 @@ export const ItemSummary = defineComponent({
     },
   },
   setup: (props, context) => {
+    //请求记账记录
     const items = ref<Item[]>([])
     const hasMore = ref(false)
     const page = ref(0)
@@ -34,6 +37,21 @@ export const ItemSummary = defineComponent({
       page.value += 1
     }
     onMounted(fetchItems)
+    //请求收支总情况
+    const itemsBalance = reactive({
+      expenses: 0,
+      income: 0,
+      balance: 0,
+    })
+    onMounted(async () => {
+      const response = await httpClient.get('/items/balance', {
+        happen_after: props.startDate,
+        happen_before: props.endDate,
+        page: page.value + 1,
+        _mock: 'itemIndexBalance',
+      })
+      Object.assign(itemsBalance, response.data)
+    })
 
     return () => (
       <div class={style.wrapper}>
@@ -46,9 +64,15 @@ export const ItemSummary = defineComponent({
                 <td>净收入</td>
               </tr>
               <tr>
-                <td>12345678.12</td>
-                <td>12345678.12</td>
-                <td>12345678.12</td>
+                <td>
+                  -<Money value={itemsBalance.income} />
+                </td>
+                <td>
+                  +<Money value={itemsBalance.expenses} />
+                </td>
+                <td>
+                  <Money value={itemsBalance.balance} />
+                </td>
               </tr>
             </table>
             <ol class={style.list}>
@@ -61,10 +85,12 @@ export const ItemSummary = defineComponent({
                     <div class={style.tagAndAmount}>
                       <span class={style.tag}>{item.tags_id[0]}</span>
                       <span class={style.amount}>
-                        ￥<>{item.amount}</>
+                        ￥<Money value={item.amount} />
                       </span>
                     </div>
-                    <div class={style.time}>{item.happen_at}</div>
+                    <div class={style.time}>
+                      {dayjs(item.happen_at).format('YYYY-MM-DD')}
+                    </div>
                   </div>
                 </li>
               ))}

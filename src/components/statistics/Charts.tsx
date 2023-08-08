@@ -27,7 +27,6 @@ export const Charts = defineComponent({
         (item) => [item.happen_at, item.amount] as [string, number],
       )
     })
-
     onMounted(async () => {
       const response = await httpClient.get<{ groups: Data1; summary: number }>(
         '/items/summary',

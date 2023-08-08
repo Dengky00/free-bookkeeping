@@ -134,7 +134,7 @@ export const mockItemIndex: Mock = (config) => {
     return [200, {}]
   }
 }
-//模拟收支总情况
+//模拟收支平衡总情况
 export const mockItemIndexBalance: Mock = (config) => {
   return [
     200,
@@ -142,6 +142,20 @@ export const mockItemIndexBalance: Mock = (config) => {
       expenses: 9900,
       income: 9900,
       balance: 0,
+    },
+  ]
+}
+//模拟记账记录的详细图表数据
+export const mockItemSummary: Mock = (config) => {
+  return [
+    200,
+    {
+      groups: [
+        { happen_at: '2018-06-18T00:00:00.000+0800', amount: 100 },
+        { happen_at: '2018-06-22T00:00:00.000+0800', amount: 300 },
+        { happen_at: '2018-06-29T00:00:00.000+0800', amount: 200 },
+      ],
+      summary: 600,
     },
   ]
 }

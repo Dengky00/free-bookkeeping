@@ -81,12 +81,11 @@ export const SignInPage = defineComponent({
       //点击发送验证码
       disabled() //在完成网络请求回应之前无法点击
       // refValidationCodeDisabled.value = true
-      const response = await httpClient
+      await httpClient
         .post('/validation_codes', { email: formData.email })
         .catch(onError)
         .finally(enable)
       //成功
-      console.log(response)
       refValidationCode.value.startCount()
     }
     return () => (

@@ -3,6 +3,5 @@ const map: Record<string, string> = {
 }
 export const getFriendlyError = (error: string) => {
   //映射后端传来的报错信息
-  // console.log(error)
   return map[error] || error
 }

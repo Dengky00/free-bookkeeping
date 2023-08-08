@@ -5,6 +5,7 @@ import {
   computed,
   defineComponent,
   onMounted,
+  provide,
   reactive,
   ref,
 } from 'vue'
@@ -13,7 +14,7 @@ import { MainLayout } from './MainLayout'
 import { OverLayIcon } from '../shared/OverLay'
 import { Tab, Tabs } from '../shared/Tabs'
 import { Form, FormItem } from '../shared/Form'
-
+//外部属性的组件类型
 const demo = defineComponent({
   props: {
     startDate: {
@@ -26,15 +27,20 @@ const demo = defineComponent({
     },
   },
 })
+
 export const TimeTabsLayout = defineComponent({
   props: {
     component: {
-      //外部属性是一个组,件规定组件类型
       type: Object as PropType<typeof demo>,
       required: true,
     },
+    rerenderOnSelect: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup: (props, context) => {
+    provide('rerenderOnSelect', props.rerenderOnSelect) //provide和inject爷孙数据传递
     const refSelected = ref('本月')
     const timeList = {
       thisMonth: {
@@ -84,7 +90,6 @@ export const TimeTabsLayout = defineComponent({
       startVant.value = tempTime.startVant
       endVant.value = tempTime.endVant
       refOverlayVisible.value = false
-      console.log('cancel', startVant.value, tempTime.startVant)
     }
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault()

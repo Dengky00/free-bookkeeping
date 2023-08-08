@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, inject, PropType } from 'vue'
 import style from './Tabs.module.scss'
 
 export const Tabs = defineComponent({
@@ -12,6 +12,7 @@ export const Tabs = defineComponent({
   },
   emits: ['update:selected'],
   setup: (props, context) => {
+    const rerenderOnSelect = inject('rerenderOnSelect') //从外部组件注入的数据
     return () => {
       const tabs = context.slots.default?.()
       if (!tabs) {
@@ -41,11 +42,17 @@ export const Tabs = defineComponent({
               </li>
             ))}
           </ol>
-          <div>
-            {tabs.map((item) => (
-              <div v-show={item.props?.name === props.selected}>{item}</div>
-            ))}
-          </div>
+          {rerenderOnSelect ? (
+            <div key={props.selected}>
+              {tabs.find((item) => item.props?.name === props.selected)}
+            </div>
+          ) : (
+            <div>
+              {tabs.map((item) => (
+                <div v-show={item.props?.name === props.selected}>{item}</div>
+              ))}
+            </div>
+          )}
         </div>
       )
     }

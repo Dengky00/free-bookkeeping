@@ -4,6 +4,6 @@ import { TimeTabsLayout } from '../layouts/TimeTabsLayout'
 
 export const StatisticsPage = defineComponent({
   setup: () => {
-    return () => <TimeTabsLayout component={Charts} />
+    return () => <TimeTabsLayout rerenderOnSelect={true} component={Charts} />
   },
 })

@@ -1,15 +1,39 @@
-import { Transition, defineComponent, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { Transition, defineComponent, onMounted, ref } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import style from './Overlay.module.scss'
 import { Icon } from './Icon'
+import { mePromise } from './me'
+import { showConfirmDialog } from 'vant'
 
 export const OverLay = defineComponent({
   setup: (props, context) => {
+    const route = useRoute()
+    const me = ref<User>()
+    onMounted(async () => {
+      const response = await mePromise
+      me.value = response?.data.resource
+    })
+    const onSignOut = async () => {
+      await showConfirmDialog({
+        title: '确认',
+        message: '你真的要退出登录吗？',
+      })
+      localStorage.removeItem('jwt')
+    }
     return () => (
       <div class={style.overlay}>
         <section class={style.currentUser}>
-          <h2>未登录用户</h2>
-          <p>点击这里登录</p>
+          {me.value ? (
+            <div>
+              <h2 class={style.email}>{me.value.email}</h2>
+              <p onClick={onSignOut}>点击这里退出登录</p>
+            </div>
+          ) : (
+            <RouterLink to={`/sign_in?return_to=${route.fullPath}`}>
+              <h2>未登录用户</h2>
+              <p>点击这里登录</p>
+            </RouterLink>
+          )}
         </section>
         <nav>
           <ul class={style.action_list}>

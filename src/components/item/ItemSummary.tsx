@@ -32,8 +32,7 @@ export const ItemSummary = defineComponent({
       })
       const { resources, pager } = response.data
       items.value?.push(...resources)
-      hasMore.value =
-        (pager.page - 1) * pager.per_page + resources.length < pager.count
+      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1
     }
     onMounted(fetchItems)
@@ -46,8 +45,8 @@ export const ItemSummary = defineComponent({
     })
     const fetchItemsBalance = async () => {
       const response = await httpClient.get('/items/balance', {
-        happen_after: props.startDate,
-        happen_before: props.endDate,
+        happen_after: props.startDate.format('YYYY-MM-DD'),
+        happen_before: props.endDate.format('YYYY-MM-DD'),
         page: page.value + 1,
         _mock: 'itemIndexBalance',
       })

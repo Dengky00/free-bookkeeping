@@ -151,9 +151,9 @@ export const mockItemSummary: Mock = (config) => {
     200,
     {
       groups: [
-        { happen_at: '2018-06-18T00:00:00.000+0800', amount: 100 },
-        { happen_at: '2018-06-22T00:00:00.000+0800', amount: 300 },
-        { happen_at: '2018-06-29T00:00:00.000+0800', amount: 200 },
+        { happen_at: '2023-08-05T16:00:00.000Z', amount: 100 },
+        { happen_at: '2023-08-12T16:00:00.000Z', amount: 300 },
+        { happen_at: '2023-08-26T16:00:00.000Z', amount: 200 },
       ],
       summary: 600,
     },

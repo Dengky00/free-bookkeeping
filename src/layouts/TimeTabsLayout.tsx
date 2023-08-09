@@ -1,15 +1,7 @@
 import style from './TimeTabsLayout.module.scss'
 import dayjs, { Dayjs } from 'dayjs'
-import {
-  PropType,
-  computed,
-  defineComponent,
-  onMounted,
-  provide,
-  reactive,
-  ref,
-} from 'vue'
-import { Overlay } from 'vant'
+import { PropType, defineComponent, provide, reactive, ref } from 'vue'
+import { Overlay, showDialog } from 'vant'
 import { MainLayout } from './MainLayout'
 import { OverLayIcon } from '../shared/OverLay'
 import { Tab, Tabs } from '../shared/Tabs'
@@ -42,16 +34,20 @@ export const TimeTabsLayout = defineComponent({
   setup: (props, context) => {
     provide('rerenderOnSelect', props.rerenderOnSelect) //provide和inject爷孙数据传递
     const refSelected = ref('本月')
+    //时间区间左闭右开[x,y)
     const timeList = {
       thisMonth: {
         start: dayjs().startOf('month'),
-        end: dayjs().endOf('month'),
+        end: dayjs().add(1, 'month').startOf('month'),
       },
       lastMonth: {
         start: dayjs().subtract(1, 'month').startOf('month'),
-        end: dayjs().subtract(1, 'month').endOf('month'),
+        end: dayjs().startOf('month'),
       },
-      thisYear: { start: dayjs().startOf('year'), end: dayjs().endOf('year') },
+      thisYear: {
+        start: dayjs().startOf('year'),
+        end: dayjs().add(1, 'year').startOf('year'),
+      },
     }
     const startVant = ref([
       dayjs().format('YYYY'),
@@ -65,20 +61,12 @@ export const TimeTabsLayout = defineComponent({
     ])
     //用于存储用户为点击取消确认时的临时时间
     let tempTime = {
-      startVant: [
-        dayjs().format('YYYY'),
-        dayjs().format('MM'),
-        dayjs().format('DD'),
-      ],
-      endVant: [
-        dayjs().format('YYYY'),
-        dayjs().format('MM'),
-        dayjs().format('DD'),
-      ],
+      startVant: [dayjs().format('YYYY'), dayjs().format('MM'), dayjs().format('DD')],
+      endVant: [dayjs().format('YYYY'), dayjs().format('MM'), dayjs().format('DD')],
     }
     const customTime = reactive({
-      start: dayjs(),
-      end: dayjs(),
+      start: dayjs().startOf('day'),
+      end: dayjs().add(1, 'day').startOf('day'),
     })
     const refOverlayVisible = ref(false)
     const showOverlay = () => {
@@ -86,26 +74,31 @@ export const TimeTabsLayout = defineComponent({
         refOverlayVisible.value = true
       }
     }
+    //取消自定义时间
     const onCancel = () => {
       startVant.value = tempTime.startVant
       endVant.value = tempTime.endVant
       refOverlayVisible.value = false
     }
+    //确认自定义时间
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault()
+      if (
+        parseInt(startVant.value[0] + startVant.value[1] + startVant.value[2]) >
+        parseInt(endVant.value[0] + endVant.value[1] + endVant.value[2])
+      ) {
+        showDialog({ title: '提示', message: '开始时间应不大于结束时间' })
+        return
+      }
       tempTime.startVant = startVant.value
       tempTime.endVant = endVant.value
       Object.assign(customTime, {
         start: dayjs(
-          startVant.value[0] +
-            '-' +
-            startVant.value[1] +
-            '-' +
-            startVant.value[2],
+          startVant.value[0] + '-' + startVant.value[1] + '-' + startVant.value[2],
         ),
-        end: dayjs(
-          endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2],
-        ),
+        end: dayjs(endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2])
+          .add(1, 'day')
+          .startOf('day'),
       })
       refOverlayVisible.value = false
     }
@@ -117,10 +110,7 @@ export const TimeTabsLayout = defineComponent({
           icon: () => <OverLayIcon />,
           default: () => (
             <>
-              <Tabs
-                v-model:selected={refSelected.value}
-                onUpdate:selected={showOverlay}
-              >
+              <Tabs v-model:selected={refSelected.value} onUpdate:selected={showOverlay}>
                 <Tab name="本月">
                   <props.component
                     startDate={timeList.thisMonth.start}
@@ -151,16 +141,8 @@ export const TimeTabsLayout = defineComponent({
                   <header>请选择时间</header>
                   <main>
                     <Form onSubmit={onSubmitCustomTime}>
-                      <FormItem
-                        label="开始时间"
-                        v-model={startVant.value}
-                        type="date"
-                      />
-                      <FormItem
-                        label="结束时间"
-                        v-model={endVant.value}
-                        type="date"
-                      />
+                      <FormItem label="开始时间" v-model={startVant.value} type="date" />
+                      <FormItem label="结束时间" v-model={endVant.value} type="date" />
                       <FormItem>
                         <div class={style.actions}>
                           <button type="button" onClick={onCancel}>

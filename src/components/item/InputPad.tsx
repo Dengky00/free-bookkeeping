@@ -21,19 +21,10 @@ export const InputPad = defineComponent({
       dayjs().format('DD'),
     ]) //vant的DatePicker接受数组形式的年月日
     const vantDate = ref(refDate.value) //暂存DatePicker中用户未确定时的日期
-    const showDate = computed(() => {
-      //展示在页面上的日期
-      if (
-        dayjs().format('YYYY-MM-DD') ===
-        refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2]
-      ) {
-        return '今天'
-      } else {
-        return (
-          refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2]
-        )
-      }
-    })
+    const showDate = computed(
+      //页面上展示的日期
+      () => refDate.value[0] + '-' + refDate.value[1] + '-' + refDate.value[2],
+    )
 
     const refDatePickerVisible = ref(false)
     const showDatePicker = () => (refDatePickerVisible.value = true)
@@ -47,13 +38,9 @@ export const InputPad = defineComponent({
         refAmount.value = refAmount.value.slice(0, -1)
       } else if (button.id === 'ok') {
         //ok提交按钮
-        if (
-          refAmount.value &&
-          refAmount.value !== '0' &&
-          refAmount.value !== '0.'
-        ) {
+        if (refAmount.value && refAmount.value !== '0' && refAmount.value !== '0.') {
           context.emit('update:amount', refAmount.value)
-          context.emit('update:happenAt', showDate.value)
+          context.emit('update:happenAt', dayjs(showDate.value).toISOString()) //记账ISO时间
           refAmount.value = ''
           props.onSubmit?.()
         }
@@ -116,9 +103,7 @@ export const InputPad = defineComponent({
               />
             </Popup>
           </div>
-          <div
-            class={[style.amount, refAmount.value === '' ? style.empty : '']}
-          >
+          <div class={[style.amount, refAmount.value === '' ? style.empty : '']}>
             <div>{refAmount.value}</div>
           </div>
         </div>

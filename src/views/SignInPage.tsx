@@ -22,12 +22,7 @@ export const SignInPage = defineComponent({
     const route = useRoute()
     const refValidationCode = ref<any>()
     // const refValidationCodeDisabled = ref(false)
-    const {
-      ref: refDisabled,
-      toggle,
-      on: disabled,
-      off: enable,
-    } = useBool(false)
+    const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
     const formData = reactive({
       email: 'dengky72@qq.com',
       code: '',

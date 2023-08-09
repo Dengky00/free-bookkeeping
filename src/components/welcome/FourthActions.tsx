@@ -6,9 +6,7 @@ export const FourthActions = () => (
   <div class={style.actions}>
     <SkipFeatures class={style.fake} />
     <RouterLink to="/start">
-      <span onClick={() => localStorage.setItem('skipFeatures', 'yes')}>
-        进入应用
-      </span>
+      <span onClick={() => localStorage.setItem('skipFeatures', 'yes')}>进入应用</span>
     </RouterLink>
     <SkipFeatures class={style.fake} />
   </div>

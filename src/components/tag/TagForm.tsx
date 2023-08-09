@@ -59,12 +59,9 @@ export const TagForm = defineComponent({
       if (!props.id) {
         return
       }
-      const response = await httpClient.get<Resource<Tag>>(
-        `/tags/${props.id}`,
-        {
-          _mock: 'tagShow',
-        },
-      )
+      const response = await httpClient.get<Resource<Tag>>(`/tags/${props.id}`, {
+        _mock: 'tagShow',
+      })
       Object.assign(formData, response.data.resource) //传递所编辑的标签信息
     })
 

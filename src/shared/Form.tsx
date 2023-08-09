@@ -62,13 +62,7 @@ export const FormItem = defineComponent({
     const vantDate = ref(props.modelValue)
     const showDate = computed(() => {
       if (props.modelValue instanceof Array) {
-        return (
-          props.modelValue[0] +
-          '-' +
-          props.modelValue[1] +
-          '-' +
-          props.modelValue[2]
-        )
+        return props.modelValue[0] + '-' + props.modelValue[1] + '-' + props.modelValue[2]
       } else {
         return ''
       }
@@ -80,9 +74,7 @@ export const FormItem = defineComponent({
             <input
               value={props.modelValue}
               placeholder={props.placeholder}
-              onInput={(e: any) =>
-                context.emit('update:modelValue', e.target.value)
-              }
+              onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
               class={[style.formItem, style.input]}
             />
           )
@@ -90,9 +82,7 @@ export const FormItem = defineComponent({
           return (
             <EmojiSelect
               modelValue={props.modelValue?.toString()}
-              onUpdateModelValue={(value) =>
-                context.emit('update:modelValue', value)
-              }
+              onUpdateModelValue={(value) => context.emit('update:modelValue', value)}
               class={[style.formItem, style.emojiList]}
             />
           )
@@ -134,9 +124,7 @@ export const FormItem = defineComponent({
               <input
                 value={props.modelValue}
                 placeholder={props.placeholder}
-                onInput={(e: any) =>
-                  context.emit('update:modelValue', e.target.value)
-                }
+                onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
                 class={[style.formItem, style.input, style.validationCodeInput]}
               />
               <Button
@@ -156,9 +144,7 @@ export const FormItem = defineComponent({
       return (
         <div class={style.formRow}>
           <label class={style.formLabel}>
-            {props.label && (
-              <span class={style.formItem_name}>{props.label}</span>
-            )}
+            {props.label && <span class={style.formItem_name}>{props.label}</span>}
             <div class={style.formItem_value}>{content.value}</div>
             {props.error && (
               <div class={style.formItem_errorHint}>

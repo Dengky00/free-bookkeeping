@@ -12,9 +12,7 @@ export const SkipFeatures = defineComponent({
     return () => (
       // <RouterLink to={`/${props.to}`} >{context.slots.default?.()}</RouterLink>
       <RouterLink to="/start">
-        <span onClick={() => localStorage.setItem('skipFeatures', 'yes')}>
-          跳过
-        </span>
+        <span onClick={() => localStorage.setItem('skipFeatures', 'yes')}>跳过</span>
       </RouterLink>
     )
   },

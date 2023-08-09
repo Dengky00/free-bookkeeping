@@ -45,10 +45,7 @@ export const TagEdit = defineComponent({
                 <Button level="danger" onClick={() => onDelete()}>
                   删除标签
                 </Button>
-                <Button
-                  level="danger"
-                  onClick={() => onDelete({ withItems: true })}
-                >
+                <Button level="danger" onClick={() => onDelete({ withItems: true })}>
                   删除记账
                 </Button>
               </div>

@@ -72,10 +72,7 @@ export const Tags = defineComponent({
           </RouterLink>
           {tags.value.map((tag) => (
             <div
-              class={[
-                style.tag,
-                props.selected === tag.id ? style.selected : '',
-              ]}
+              class={[style.tag, props.selected === tag.id ? style.selected : '']}
               onClick={() => onSelect(tag)}
               onTouchstart={(e) => onTouchStart(e, tag)}
               onTouchend={onTouchEnd}

@@ -10,10 +10,7 @@ interface Options {
   afterEnd?: (e: TouchEvent) => void
 }
 //手势滑动
-export const useSwipe = (
-  element: Ref<HTMLElement | undefined>,
-  options?: Options,
-) => {
+export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Options) => {
   const swiping = ref(false)
   const start = ref<Point>()
   const end = ref<Point>()

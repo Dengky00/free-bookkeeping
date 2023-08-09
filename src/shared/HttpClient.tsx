@@ -29,11 +29,7 @@ export class HttpClient {
     })
   }
   //查read
-  get<R = unknown>(
-    url: string,
-    query?: Record<string, JSONValue>,
-    config?: GetConfig,
-  ) {
+  get<R = unknown>(url: string, query?: Record<string, JSONValue>, config?: GetConfig) {
     return this.instance.request<R>({
       ...config,
       url: url,
@@ -42,11 +38,7 @@ export class HttpClient {
     })
   }
   //增create
-  post<R = unknown>(
-    url: string,
-    data?: Record<string, JSONValue>,
-    config?: PostConfig,
-  ) {
+  post<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PostConfig) {
     return this.instance.request<R>({ ...config, url, data, method: 'post' })
   }
   //改update

@@ -30,6 +30,10 @@ export const TimeTabsLayout = defineComponent({
       type: Boolean,
       default: false,
     },
+    hideThisYear: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup: (props, context) => {
     provide('rerenderOnSelect', props.rerenderOnSelect) //provide和inject爷孙数据传递
@@ -108,9 +112,65 @@ export const TimeTabsLayout = defineComponent({
         {{
           title: () => '自由记账',
           icon: () => <OverLayIcon />,
+          //由于项目初期只想到按天显示折线图,导致按年统计时折线图过于密集,所以可以取消今年选项
           default: () => (
             <>
-              <Tabs v-model:selected={refSelected.value} onUpdate:selected={showOverlay}>
+              {props.hideThisYear ? (
+                <Tabs
+                  v-model:selected={refSelected.value}
+                  onUpdate:selected={showOverlay}
+                >
+                  <Tab name="本月">
+                    <props.component
+                      startDate={timeList.thisMonth.start}
+                      endDate={timeList.thisMonth.end}
+                    />
+                  </Tab>
+                  <Tab name="上月">
+                    <props.component
+                      startDate={timeList.lastMonth.start}
+                      endDate={timeList.lastMonth.end}
+                    />
+                  </Tab>
+                  <Tab name="自定义时间">
+                    <props.component
+                      startDate={customTime.start}
+                      endDate={customTime.end}
+                    />
+                  </Tab>
+                </Tabs>
+              ) : (
+                <Tabs
+                  v-model:selected={refSelected.value}
+                  onUpdate:selected={showOverlay}
+                >
+                  <Tab name="本月">
+                    <props.component
+                      startDate={timeList.thisMonth.start}
+                      endDate={timeList.thisMonth.end}
+                    />
+                  </Tab>
+                  <Tab name="上月">
+                    <props.component
+                      startDate={timeList.lastMonth.start}
+                      endDate={timeList.lastMonth.end}
+                    />
+                  </Tab>
+                  <Tab name="今年">
+                    <props.component
+                      startDate={timeList.thisYear.start}
+                      endDate={timeList.thisYear.end}
+                    />
+                  </Tab>
+                  <Tab name="自定义时间">
+                    <props.component
+                      startDate={customTime.start}
+                      endDate={customTime.end}
+                    />
+                  </Tab>
+                </Tabs>
+              )}
+              {/* <Tabs v-model:selected={refSelected.value} onUpdate:selected={showOverlay}>
                 <Tab name="本月">
                   <props.component
                     startDate={timeList.thisMonth.start}
@@ -135,7 +195,7 @@ export const TimeTabsLayout = defineComponent({
                     endDate={customTime.end}
                   />
                 </Tab>
-              </Tabs>
+              </Tabs> */}
               <Overlay show={refOverlayVisible.value} class={style.overlay}>
                 <div class={style.overlay_inner}>
                   <header>请选择时间</header>

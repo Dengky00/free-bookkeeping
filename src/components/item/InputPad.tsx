@@ -40,7 +40,7 @@ export const InputPad = defineComponent({
         //ok提交按钮
         if (refAmount.value && refAmount.value !== '0' && refAmount.value !== '0.') {
           context.emit('update:amount', refAmount.value)
-          context.emit('update:happenAt', dayjs(showDate.value).toISOString()) //记账ISO时间
+          context.emit('update:happenAt', dayjs(showDate.value).format()) //记账ISO时间
           refAmount.value = ''
           props.onSubmit?.()
         }

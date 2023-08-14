@@ -14,6 +14,7 @@ import {
   mockTagIndex,
   mockTagShow,
 } from '../mock/mock'
+import { closeToast, showLoadingToast } from 'vant'
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
 type PostConfig = Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>
@@ -72,7 +73,7 @@ const mock = (response: AxiosResponse) => {
   ) {
     return false
   }
-  switch (response.config?.params?._mock) {
+  switch (response.config?._mock) {
     case 'session':
       ;[response.status, response.data] = mockSession(response.config)
       return true
@@ -110,8 +111,30 @@ httpClient.instance.interceptors.request.use((config) => {
     //Authorization是HTTP请求头部的一种类型,用于传递身份验证信息,Bearer方案是一种用于简化身份验证的标准格式
     config.headers!.Authorization = `Bearer ${jwt}`
   }
+  if (config._autoLoading === true) {
+    //请求带有_autoLoading参数则展示加载动画
+    showLoadingToast({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 0,
+    })
+  }
   return config
 })
+httpClient.instance.interceptors.response.use(
+  (response) => {
+    if (response.config._autoLoading === true) {
+      closeToast()
+    }
+    return response
+  },
+  (error: AxiosError) => {
+    if (error.response?.config._autoLoading === true) {
+      closeToast()
+    }
+    throw error
+  },
+)
 
 httpClient.instance.interceptors.response.use(
   (response) => {

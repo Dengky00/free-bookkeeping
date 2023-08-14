@@ -24,12 +24,15 @@ export const ItemSummary = defineComponent({
     const hasMore = ref(false)
     const page = ref(0)
     const fetchItems = async () => {
-      const response = await httpClient.get<Resources<Item>>('/items', {
-        happen_after: props.startDate.format('YYYY-MM-DD'),
-        happen_before: props.endDate.format('YYYY-MM-DD'),
-        page: page.value + 1,
-        _mock: 'itemIndex',
-      })
+      const response = await httpClient.get<Resources<Item>>(
+        '/items',
+        {
+          happen_after: props.startDate.format('YYYY-MM-DD'),
+          happen_before: props.endDate.format('YYYY-MM-DD'),
+          page: page.value + 1,
+        },
+        { _mock: 'itemIndex', _autoLoading: true },
+      )
       const { resources, pager } = response.data
       items.value?.push(...resources)
       hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
@@ -44,12 +47,17 @@ export const ItemSummary = defineComponent({
       balance: 0,
     })
     const fetchItemsBalance = async () => {
-      const response = await httpClient.get('/items/balance', {
-        happen_after: props.startDate.format('YYYY-MM-DD'),
-        happen_before: props.endDate.format('YYYY-MM-DD'),
-        page: page.value + 1,
-        _mock: 'itemIndexBalance',
-      })
+      const response = await httpClient.get(
+        '/items/balance',
+        {
+          happen_after: props.startDate.format('YYYY-MM-DD'),
+          happen_before: props.endDate.format('YYYY-MM-DD'),
+          page: page.value + 1,
+        },
+        {
+          _mock: 'itemIndexBalance',
+        },
+      )
       Object.assign(itemsBalance, response.data)
     }
     onMounted(fetchItemsBalance)

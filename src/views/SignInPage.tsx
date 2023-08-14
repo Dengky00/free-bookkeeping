@@ -77,7 +77,13 @@ export const SignInPage = defineComponent({
       disabled() //在完成网络请求回应之前无法点击
       // refValidationCodeDisabled.value = true
       await httpClient
-        .post('/validation_codes', { email: formData.email })
+        .post(
+          '/validation_codes',
+          { email: formData.email },
+          {
+            _autoLoading: true,
+          },
+        )
         .catch(onError)
         .finally(enable)
       //成功

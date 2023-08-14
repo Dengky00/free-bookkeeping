@@ -20,11 +20,17 @@ export const Tags = defineComponent({
     const router = useRouter()
     //分页加载标签
     const { tags, hasMore, fetchTags } = useTags((page) => {
-      return httpClient.get<Resources<Tag>>('/tags', {
-        kind: props.kind,
-        page: page + 1,
-        _mock: 'tagIndex',
-      })
+      return httpClient.get<Resources<Tag>>(
+        '/tags',
+        {
+          kind: props.kind,
+          page: page + 1,
+        },
+        {
+          _mock: 'tagIndex',
+          _autoLoading: true,
+        },
+      )
     })
     const onSelect = (tag: Tag) => {
       context.emit('update:selected', tag.id)

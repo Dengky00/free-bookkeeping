@@ -26,9 +26,13 @@ export const TagEdit = defineComponent({
         message: '你真的要删除吗？',
       })
       await httpClient
-        .delete(`/tags/${numberId}`, {
-          withItems: options?.withItems ? 'true' : 'false',
-        })
+        .delete(
+          `/tags/${numberId}`,
+          {
+            withItems: options?.withItems ? 'true' : 'false',
+          },
+          { _autoLoading: true },
+        )
         .catch(onError)
       router.back()
     }

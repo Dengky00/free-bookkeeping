@@ -32,7 +32,8 @@ export const ItemCreate = defineComponent({
       if (formData.tags_id.length !== 0) {
         await httpClient
           .post<Resource<Item>>('/items', formData, {
-            params: { _mock: 'itemCreate' },
+            _mock: 'itemCreate',
+            _autoLoading: true,
           })
           .catch(onError)
         router.push('/items')

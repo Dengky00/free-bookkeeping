@@ -1,0 +1,12 @@
+.text {
+  text-align: center;
+  font-size: 32px;
+}
+
+.build {
+  width: 80vw;
+  height: 80vw;
+  &_wrapper {
+    padding: 60px 0;
+  }
+}

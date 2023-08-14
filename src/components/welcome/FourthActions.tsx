@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 export const FourthActions = () => (
   <div class={style.actions}>
     <SkipFeatures class={style.fake} />
-    <RouterLink to="/start">
+    <RouterLink to="/items">
       <span onClick={() => localStorage.setItem('skipFeatures', 'yes')}>进入应用</span>
     </RouterLink>
     <SkipFeatures class={style.fake} />

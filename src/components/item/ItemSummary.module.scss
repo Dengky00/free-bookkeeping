@@ -74,3 +74,19 @@
   padding: 32px 0;
   text-align: center;
 }
+
+.icon {
+  height: 200px;
+
+  &_wrapper {
+    padding: 150px 0;
+  }
+}
+
+.button {
+  width: 100%;
+
+  &_wrapper {
+    padding: 16px;
+  }
+}

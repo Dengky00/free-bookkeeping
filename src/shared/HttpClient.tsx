@@ -67,9 +67,10 @@ export class HttpClient {
 
 const mock = (response: AxiosResponse) => {
   if (
-    location.hostname !== 'localhost' && //如果不是本地服务器就不使用mock
-    location.hostname !== '127.0.0.1' &&
-    location.hostname !== '192.168.3.57'
+    true ||
+    (location.hostname !== 'localhost' && //如果不是本地服务器就不使用mock
+      location.hostname !== '127.0.0.1' &&
+      location.hostname !== '192.168.3.57')
   ) {
     return false
   }

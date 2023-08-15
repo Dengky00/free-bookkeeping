@@ -64,9 +64,9 @@ export const mockTagIndex: Mock = (config) => {
       kind: config.params.kind,
       ...attrs,
     }))
-  if (kind === 'expense' && (!page || page === 1)) {
+  if (kind === 'expenses' && (!page || page === 1)) {
     return [200, createBody(25)]
-  } else if (kind === 'expense' && page === 2) {
+  } else if (kind === 'expenses' && page === 2) {
     return [200, createBody(1)]
   } else if (kind === 'income' && (!page || page === 1)) {
     return [200, createBody(25)]
@@ -148,7 +148,7 @@ export const mockItemIndexBalance: Mock = (config) => {
 //模拟记账记录的详细图表数据
 export const mockItemSummary: Mock = (config) => {
   const { group_by, kind } = config.params
-  if (group_by === 'happen_at' && kind === 'expense') {
+  if (group_by === 'happen_at' && kind === 'expenses') {
     return [
       200,
       {
@@ -174,7 +174,7 @@ export const mockItemSummary: Mock = (config) => {
         summary: 800,
       },
     ]
-  } else if (group_by === 'tag_id' && kind === 'expense') {
+  } else if (group_by === 'tag_id' && kind === 'expenses') {
     return [
       200,
       {

@@ -24,7 +24,7 @@ export const Charts = defineComponent({
     },
   },
   setup: (props, context) => {
-    const kind = ref('expense')
+    const kind = ref('expenses')
     //data1折线图数据
     const data1 = ref<Data1>([])
     const betterData1 = computed<[string, number][]>(() => {
@@ -93,9 +93,9 @@ export const Charts = defineComponent({
           <span>类型</span>
           <select
             v-model={kind.value}
-            style={kind.value === 'expense' ? { color: 'green' } : { color: 'red' }}
+            style={kind.value === 'expenses' ? { color: 'green' } : { color: 'red' }}
           >
-            <option value="expense" style={{ color: 'green' }}>
+            <option value="expenses" style={{ color: 'green' }}>
               支出
             </option>
             <option value="income" style={{ color: 'red' }}>

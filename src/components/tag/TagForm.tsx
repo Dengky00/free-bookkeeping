@@ -86,9 +86,7 @@ export const TagForm = defineComponent({
           <p class={style.tips}>记账时长按标签即可进行编辑</p>
         </FormItem>
         <FormItem>
-          <Button type="submit" class={[style.button]}>
-            确定
-          </Button>
+          <Button type="submit">确定</Button>
         </FormItem>
       </Form>
     )

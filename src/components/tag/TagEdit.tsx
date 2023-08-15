@@ -20,19 +20,13 @@ export const TagEdit = defineComponent({
       showDialog({ title: '提示', message: '删除失败' })
     }
     //用户选择是否连同记账一起删除
-    const onDelete = async (options?: { withItems?: boolean }) => {
+    const onDelete = async () => {
       await showConfirmDialog({
         title: '确认',
         message: '你真的要删除标签和记账吗？',
       })
       await httpClient
-        .delete(
-          `/tags/${numberId}`,
-          {
-            with_items: options?.withItems ? 'true' : 'false',
-          },
-          { _autoLoading: true },
-        )
+        .delete(`/tags/${numberId}`, {}, { _autoLoading: true })
         .catch(onError)
       router.back()
     }
@@ -45,14 +39,9 @@ export const TagEdit = defineComponent({
           default: () => (
             <>
               <TagForm id={numberId} />
-              <div class={style.actions}>
-                <Button level="danger" onClick={() => onDelete()}>
-                  删除标签
-                </Button>
-                <Button level="danger" onClick={() => onDelete({ withItems: true })}>
-                  删除记账
-                </Button>
-              </div>
+              <Button class={style.delete} level="danger" onClick={onDelete}>
+                删除标签和记账
+              </Button>
             </>
           ),
         }}

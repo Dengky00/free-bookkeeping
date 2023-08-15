@@ -3,8 +3,7 @@
   padding: 4px 0;
 }
 
-.actions {
-  padding: 0 16px;
-  display: flex;
-  justify-content: space-between;
+.delete {
+  width: calc(100% - 32px);
+  margin: 0 16px;
 }

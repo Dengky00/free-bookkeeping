@@ -30,7 +30,7 @@ export const Charts = defineComponent({
     const betterData1 = computed<[string, number][]>(() => {
       const duration = dayjs.duration(props.endDate.diff(props.startDate)).asDays() //时间区间天数
       return Array.from({ length: duration }).map((_, i) => {
-        const time = props.startDate.add(i, 'day').format()
+        const time = props.startDate.add(i, 'day').format('YYYY-MM-DD')
         const item = data1.value[0]
         const amount = item && item.happen_at === time ? data1.value.shift()!.amount : 0
         return [time, amount]
@@ -50,7 +50,7 @@ export const Charts = defineComponent({
           _autoLoading: true,
         },
       )
-      data1.value = response.data.groups
+      data1.value = response.data.groups.reverse()
     }
     onMounted(fetchData1)
     watch(() => kind.value, fetchData1)

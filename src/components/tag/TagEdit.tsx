@@ -23,13 +23,13 @@ export const TagEdit = defineComponent({
     const onDelete = async (options?: { withItems?: boolean }) => {
       await showConfirmDialog({
         title: '确认',
-        message: '你真的要删除吗？',
+        message: '你真的要删除标签和记账吗？',
       })
       await httpClient
         .delete(
           `/tags/${numberId}`,
           {
-            withItems: options?.withItems ? 'true' : 'false',
+            with_items: options?.withItems ? 'true' : 'false',
           },
           { _autoLoading: true },
         )

@@ -94,10 +94,10 @@ export const ItemSummary = defineComponent({
               </tr>
               <tr>
                 <td>
-                  -<Money value={itemsBalance.income} />
+                  -<Money value={itemsBalance.expenses} />
                 </td>
                 <td>
-                  +<Money value={itemsBalance.expenses} />
+                  +<Money value={itemsBalance.income} />
                 </td>
                 <td>
                   <Money value={itemsBalance.balance} />
@@ -108,13 +108,24 @@ export const ItemSummary = defineComponent({
               {items.value.map((item) => (
                 <li>
                   <div class={style.sign}>
-                    <span>{item.tags![0].sign}</span>
+                    <span>
+                      {item.tags && item.tags.length > 0 ? item.tags[0].sign : '💰'}
+                    </span>
                   </div>
                   <div class={style.text}>
                     <div class={style.tagAndAmount}>
-                      <span class={style.tag}>{item.tags![0].name}</span>
-                      <span class={style.amount}>
-                        ￥<Money value={item.amount} />
+                      <span class={style.tag}>
+                        {item.tags && item.tags.length > 0 ? item.tags[0].name : '未分类'}
+                      </span>
+                      <span
+                        style={
+                          item.kind === 'expenses'
+                            ? { color: '#008000' }
+                            : { color: '#ff0000' }
+                        }
+                      >
+                        {item.kind === 'expenses' ? '-' : '+'}￥
+                        <Money value={item.amount} />
                       </span>
                     </div>
                     <div class={style.time}>

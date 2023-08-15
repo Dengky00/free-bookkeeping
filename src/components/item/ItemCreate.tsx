@@ -12,10 +12,11 @@ import { BackIcon } from '../../shared/BackIcon'
 
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
-    const formData = reactive({
-      kind: '支出',
-      tags_id: [],
-      amount: '',
+    //formDate类型是部分Item类型
+    const formData = reactive<Partial<Item>>({
+      kind: 'expenses',
+      tag_ids: [],
+      amount: 0,
       happen_at: '',
     })
     const router = useRouter()
@@ -29,7 +30,7 @@ export const ItemCreate = defineComponent({
       throw error
     }
     const onSubmit = async () => {
-      if (formData.tags_id.length !== 0) {
+      if (formData.tag_ids && formData.tag_ids.length !== 0) {
         await httpClient
           .post<Resource<Item>>('/items', formData, {
             _mock: 'itemCreate',
@@ -38,7 +39,10 @@ export const ItemCreate = defineComponent({
           .catch(onError)
         router.push('/items')
       } else {
-        alert('未选择标签')
+        showDialog({
+          title: '出错',
+          message: '未选择标签',
+        })
       }
     }
 
@@ -51,11 +55,11 @@ export const ItemCreate = defineComponent({
             <>
               <div class={style.wrapper}>
                 <Tabs v-model:selected={formData.kind} class={style.tabs}>
-                  <Tab name="支出">
-                    <Tags kind="expense" v-model:selected={formData.tags_id[0]} />
+                  <Tab value="expenses" name="支出">
+                    <Tags kind="expenses" v-model:selected={formData.tag_ids![0]} />
                   </Tab>
-                  <Tab name="收入">
-                    <Tags kind="income" v-model:selected={formData.tags_id[0]} />
+                  <Tab value="income" name="收入">
+                    <Tags kind="income" v-model:selected={formData.tag_ids![0]} />
                   </Tab>
                 </Tabs>
                 <div class={style.inputPad_wrapper}>

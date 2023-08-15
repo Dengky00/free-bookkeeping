@@ -7,7 +7,7 @@ import 'vant/lib/index.css'
 
 export const InputPad = defineComponent({
   props: {
-    amount: String,
+    amount: Number,
     happenAt: String,
     onSubmit: {
       type: Function as PropType<() => void>,
@@ -38,8 +38,8 @@ export const InputPad = defineComponent({
         refAmount.value = refAmount.value.slice(0, -1)
       } else if (button.id === 'ok') {
         //ok提交按钮
-        if (refAmount.value && refAmount.value !== '0' && refAmount.value !== '0.') {
-          context.emit('update:amount', refAmount.value)
+        if (!['', '0', '0.', '0.0', '0.00'].includes(refAmount.value)) {
+          context.emit('update:amount', parseFloat(refAmount.value) * 100)
           context.emit('update:happenAt', dayjs(showDate.value).format()) //记账ISO时间
           refAmount.value = ''
           props.onSubmit?.()
@@ -103,7 +103,7 @@ export const InputPad = defineComponent({
               />
             </Popup>
           </div>
-          <div class={[style.amount, refAmount.value === '' ? style.empty : '']}>
+          <div class={[style.amount, refAmount.value === '' && style.empty]}>
             <div>{refAmount.value}</div>
           </div>
         </div>

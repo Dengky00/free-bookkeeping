@@ -27,11 +27,7 @@ export const SignInPage = defineComponent({
       email: 'dengky72@qq.com',
       code: '',
     })
-    const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
-    // const errors = reactive({
-    //     email: undefined,
-    //     code: undefined,
-    // })
+    const errors = reactive<FormErrors<typeof formData>>({})
     const onSubmit = async (e: Event) => {
       e.preventDefault()
       const rules: Rules<typeof formData> = [

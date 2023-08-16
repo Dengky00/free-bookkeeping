@@ -4,7 +4,7 @@ import { createRouter } from 'vue-router'
 import { routes } from './config/routes'
 import { history } from './shared/history'
 import '@svgstore'
-import { createPinia } from 'pinia'
+import { createPinia, storeToRefs } from 'pinia'
 import { useMeStore } from './stores/useMeStore'
 
 const pinia = createPinia()
@@ -15,6 +15,7 @@ app.use(router)
 app.mount('#app')
 
 const meStore = useMeStore()
+const { mePromise } = storeToRefs(meStore) //直接解构赋值会失去响应式
 meStore.fetchMe()
 //导航守卫,除了白名单页面进入前都要判断是否登录
 const whiteList: Record<string, 'exact' | 'startsWith'> = {
@@ -33,7 +34,7 @@ router.beforeEach((to, from) => {
       return true
     }
   }
-  return meStore.mePromise!.then(
+  return mePromise!.value!.then(
     () => true,
     () => '/sign_in?return_to=' + to.path,
   )

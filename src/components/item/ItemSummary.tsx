@@ -9,6 +9,7 @@ import dayjs from 'dayjs'
 import { RouterLink } from 'vue-router'
 import { Center } from '../../shared/Center'
 import { Icon } from '../../shared/Icon'
+import { useAfterMe } from '../../hooks/useAfterMe'
 
 export const ItemSummary = defineComponent({
   props: {
@@ -41,7 +42,7 @@ export const ItemSummary = defineComponent({
       hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1
     }
-    onMounted(fetchItems)
+    useAfterMe(fetchItems)
 
     //请求收支总情况
     const itemsBalance = reactive({
@@ -63,7 +64,7 @@ export const ItemSummary = defineComponent({
       )
       Object.assign(itemsBalance, response.data)
     }
-    onMounted(fetchItemsBalance)
+    useAfterMe(fetchItemsBalance)
 
     //请求自定义时间范围内记账记录
     watch(

@@ -38,19 +38,19 @@ export const TimeTabsLayout = defineComponent({
   setup: (props, context) => {
     provide('rerenderOnSelect', props.rerenderOnSelect) //provide和inject爷孙数据传递
     const refSelected = ref('本月')
-    //时间区间左闭右开[x,y)
+    //时间区间左右全闭[x,y]
     const timeList = {
       thisMonth: {
         start: dayjs().startOf('month'),
-        end: dayjs().add(1, 'month').startOf('month'),
+        end: dayjs().endOf('month'),
       },
       lastMonth: {
         start: dayjs().subtract(1, 'month').startOf('month'),
-        end: dayjs().startOf('month'),
+        end: dayjs().subtract(1, 'month').endOf('month'),
       },
       thisYear: {
         start: dayjs().startOf('year'),
-        end: dayjs().add(1, 'year').startOf('year'),
+        end: dayjs().endOf('year'),
       },
     }
     const startVant = ref([
@@ -100,9 +100,7 @@ export const TimeTabsLayout = defineComponent({
         start: dayjs(
           startVant.value[0] + '-' + startVant.value[1] + '-' + startVant.value[2],
         ),
-        end: dayjs(endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2])
-          .add(1, 'day')
-          .startOf('day'),
+        end: dayjs(endVant.value[0] + '-' + endVant.value[1] + '-' + endVant.value[2]),
       })
       refOverlayVisible.value = false
     }

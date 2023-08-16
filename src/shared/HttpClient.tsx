@@ -105,15 +105,15 @@ const mock = (response: AxiosResponse) => {
 
 export const httpClient = new HttpClient('/api/v1') //封装连接的服务器
 
+//请求拦截,每条请求带上本地存储的jwt,标志是否登录
 httpClient.instance.interceptors.request.use((config) => {
-  //请求拦截,每条请求带上本地存储的jwt,标志是否登录
   const jwt = localStorage.getItem('jwt')
+  //Authorization是HTTP请求头部的一种类型,用于传递身份验证信息,Bearer方案是一种用于简化身份验证的标准格式
   if (jwt) {
-    //Authorization是HTTP请求头部的一种类型,用于传递身份验证信息,Bearer方案是一种用于简化身份验证的标准格式
     config.headers!.Authorization = `Bearer ${jwt}`
   }
+  //请求带有_autoLoading参数则展示加载动画
   if (config._autoLoading === true) {
-    //请求带有_autoLoading参数则展示加载动画
     showLoadingToast({
       message: '加载中...',
       forbidClick: true,
@@ -122,6 +122,7 @@ httpClient.instance.interceptors.request.use((config) => {
   }
   return config
 })
+//服务器响应结束关闭加载动画
 httpClient.instance.interceptors.response.use(
   (response) => {
     if (response.config._autoLoading === true) {
@@ -136,10 +137,10 @@ httpClient.instance.interceptors.response.use(
     throw error
   },
 )
-
+//响应拦截,判断是否返回模拟数据
 httpClient.instance.interceptors.response.use(
   (response) => {
-    mock(response) //响应拦截,判断是否返回模拟数据
+    mock(response)
     if (response.status >= 400) {
       throw { response }
     } else {

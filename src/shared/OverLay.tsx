@@ -2,15 +2,16 @@ import { Transition, defineComponent, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import style from './Overlay.module.scss'
 import { Icon } from './Icon'
-import { mePromise } from './me'
 import { showConfirmDialog } from 'vant'
+import { useMeStore } from '../stores/useMeStore'
 
 export const OverLay = defineComponent({
   setup: (props, context) => {
+    const meStore = useMeStore()
     const route = useRoute()
     const me = ref<User>()
     onMounted(async () => {
-      const response = await mePromise
+      const response = await meStore.mePromise
       me.value = response?.data.resource
     })
     const onSignOut = async () => {

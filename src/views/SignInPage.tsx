@@ -8,8 +8,8 @@ import { hasError, Rules, validate } from '../shared/validate'
 import { httpClient } from '../shared/HttpClient'
 import { useBool } from '../hooks/useBool'
 import { useRoute, useRouter } from 'vue-router'
-import { refreshMe } from '../shared/me'
 import { BackIcon } from '../shared/BackIcon'
+import { useMeStore } from '../stores/useMeStore'
 
 export const SignInPage = defineComponent({
   props: {
@@ -18,6 +18,7 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
+    const meStore = useMeStore()
     const router = useRouter()
     const route = useRoute()
     const refValidationCode = ref<any>()
@@ -58,7 +59,7 @@ export const SignInPage = defineComponent({
         // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
         const returnTo = route.query.return_to?.toString()
         // const returnTo = localStorage.getItem('returnTo')//从localStorage读取登录后要返回的地址
-        refreshMe()
+        meStore.refreshMe()
         router.push(returnTo || '/')
       }
     }

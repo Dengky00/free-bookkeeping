@@ -8,7 +8,6 @@ type State = {
   page: number
 }
 type Actions = {
-  reset: () => void
   _fetch: (firstPage: boolean, startDate: Dayjs, endDate: Dayjs) => void //是否重新加载第一页
   fetchItems: (startDate: Dayjs, endDate: Dayjs) => void //加载第一页
   fetchNextPage: (startDate: Dayjs, endDate: Dayjs) => void //加载下一页
@@ -23,11 +22,6 @@ export const useItemStore = (id: string | string[]) =>
       page: 0,
     }),
     actions: {
-      reset() {
-        this.items = []
-        this.hasMore = false
-        this.page = 0
-      },
       async _fetch(firstPage, startDate, endDate) {
         const response = await httpClient.get<Resources<Item>>(
           '/items',

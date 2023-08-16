@@ -25,24 +25,6 @@ export const ItemSummary = defineComponent({
   },
   setup: (props, context) => {
     //请求记账记录
-    // const items = ref<Item[]>([])
-    // const hasMore = ref(false)
-    // const page = ref(0)
-    // const fetchItems = async () => {
-    //   const response = await httpClient.get<Resources<Item>>(
-    //     '/items',
-    //     {
-    //       happen_after: props.startDate.format('YYYY-MM-DD'),
-    //       happen_before: props.endDate.format('YYYY-MM-DD'),
-    //       page: page.value + 1,
-    //     },
-    //     { _mock: 'itemIndex', _autoLoading: true },
-    //   )
-    //   const { resources, pager } = response.data
-    //   items.value?.push(...resources)
-    //   hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
-    //   page.value += 1
-    // }
     const itemStore = useItemStore([
       'items',
       props.startDate.format('YYYY-MM-DD'),
@@ -75,7 +57,7 @@ export const ItemSummary = defineComponent({
     watch(
       () => [props.startDate, props.endDate],
       () => {
-        itemStore.reset()
+        itemStore.$reset()
         itemStore.fetchItems(props.startDate, props.endDate)
         Object.assign(itemsBalance, {
           expenses: 0,

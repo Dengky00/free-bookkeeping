@@ -3,9 +3,9 @@ import { Button } from '../../shared/Button'
 import { httpClient } from '../../shared/HttpClient'
 import { Icon } from '../../shared/Icon'
 import { useTags } from '../../shared/useTags'
-
 import style from './Tags.module.scss'
 import { RouterLink, useRouter } from 'vue-router'
+
 export const Tags = defineComponent({
   props: {
     kind: {
@@ -39,9 +39,7 @@ export const Tags = defineComponent({
     const currentTag = ref<HTMLDivElement>()
     //长按标签跳转
     const onLongPress = (tagId: Tag['id']) => {
-      router.push(
-        `/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`,
-      )
+      router.push(`/tags/${tagId}/edit?kind=${props.kind}`)
     }
     const onTouchStart = (e: TouchEvent, tag: Tag) => {
       currentTag.value = e.currentTarget as HTMLDivElement
@@ -61,7 +59,6 @@ export const Tags = defineComponent({
       if (
         currentTag.value !== pointedElement &&
         !currentTag.value?.contains(pointedElement)
-        // currentTag.value?.contains(pointedElement) === false
       ) {
         clearTimeout(timer.value)
       }

@@ -135,8 +135,9 @@ export const ItemSummary = defineComponent({
           </>
         ) : (
           <>
-            <Center class={style.icon_wrapper}>
+            <Center class={style.icon_wrapper} direction='|'>
               <Icon name="bird" class={style.icon} />
+              <p>目前没有数据</p>
             </Center>
             <div class={style.button_wrapper}>
               <RouterLink to="/items/create">

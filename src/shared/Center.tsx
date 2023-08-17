@@ -2,10 +2,10 @@ import { PropType, defineComponent } from 'vue'
 import style from './Center.module.scss'
 
 const directionMap = {
-  '-': 'horizontal',
-  '|': 'vertical',
-  horizontal: 'horizontal',
-  vertical: 'vertical',
+  '-': style.horizontal,
+  '|': style.vertical,
+  horizontal: style.horizontal,
+  vertical: style.vertical,
 }
 export const Center = defineComponent({
   props: {

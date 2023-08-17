@@ -39,6 +39,12 @@ export const OverLay = defineComponent({
         <nav>
           <ul class={style.action_list}>
             <li>
+              <RouterLink to="/items" class={style.action}>
+                <Icon name="items" class={style.icon} />
+                <span>查看记账</span>
+              </RouterLink>
+            </li>
+            <li>
               <RouterLink to="/statistics" class={style.action}>
                 <Icon name="charts" class={style.icon} />
                 <span>统计图表</span>

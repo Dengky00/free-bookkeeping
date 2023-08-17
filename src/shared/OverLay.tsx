@@ -1,5 +1,5 @@
 import { Transition, defineComponent, onMounted, ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import style from './Overlay.module.scss'
 import { Icon } from './Icon'
 import { showConfirmDialog } from 'vant'
@@ -9,6 +9,7 @@ export const OverLay = defineComponent({
   setup: (props, context) => {
     const meStore = useMeStore()
     const route = useRoute()
+    const router = useRouter()
     const me = ref<User>()
     onMounted(async () => {
       const response = await meStore.mePromise
@@ -20,6 +21,11 @@ export const OverLay = defineComponent({
         message: '你真的要退出登录吗？',
       })
       localStorage.removeItem('jwt')
+      if (route.path === '/items') {
+        window.location.reload()
+      } else {
+        router.push('/')
+      }
     }
     return () => (
       <div class={style.overlay}>

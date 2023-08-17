@@ -40,8 +40,8 @@ export const Charts = defineComponent({
       const response = await httpClient.get<{ groups: Data1; summary: number }>(
         '/items/summary',
         {
-          happen_after: props.startDate,
-          happen_before: props.endDate,
+          happen_after: props.startDate.format('YYYY-MM-DD'),
+          happen_before: props.endDate.format('YYYY-MM-DD'),
           kind: kind.value,
           group_by: 'happen_at',
         },
@@ -73,8 +73,8 @@ export const Charts = defineComponent({
       const response = await httpClient.get<{ groups: Data2; summary: number }>(
         '/items/summary',
         {
-          happen_after: props.startDate,
-          happen_before: props.endDate,
+          happen_after: props.startDate.format('YYYY-MM-DD'),
+          happen_before: props.endDate.format('YYYY-MM-DD'),
           kind: kind.value,
           group_by: 'tag_id',
         },

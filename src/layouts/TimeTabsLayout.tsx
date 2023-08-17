@@ -69,8 +69,8 @@ export const TimeTabsLayout = defineComponent({
       endVant: [dayjs().format('YYYY'), dayjs().format('MM'), dayjs().format('DD')],
     }
     const customTime = reactive({
-      start: dayjs().startOf('day'),
-      end: dayjs().add(1, 'day').startOf('day'),
+      start: dayjs(),
+      end: dayjs(),
     })
     const refOverlayVisible = ref(false)
     const showOverlay = () => {

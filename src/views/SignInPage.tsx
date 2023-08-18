@@ -25,7 +25,7 @@ export const SignInPage = defineComponent({
     // const refValidationCodeDisabled = ref(false)
     const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
     const formData = reactive({
-      email: 'dengky72@qq.com',
+      email: '',
       code: '',
     })
     const errors = reactive<FormErrors<typeof formData>>({})
@@ -126,3 +126,4 @@ export const SignInPage = defineComponent({
     )
   },
 })
+export default SignInPage

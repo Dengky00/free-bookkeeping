@@ -22,7 +22,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
   {
     path: '/welcome',
-    component: Welcome,
+    component: () => import('../views/Welcome'),
     beforeEnter: (to, from, next) => {
       localStorage.getItem('skipFeatures') === 'yes' ? next('/items') : next()
     },
@@ -52,7 +52,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/items',
-    component: ItemPage,
+    component: () => import('../views/ItemPage'),
     children: [
       { path: '', component: ItemList },
       { path: 'create', component: ItemCreate },
@@ -60,15 +60,15 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/tags',
-    component: TagPage,
+    component: () => import('../views/TagPage'),
     children: [
       { path: '', redirect: '/tags/create' },
       { path: 'create', component: TagCreate },
       { path: ':id/edit', component: TagEdit },
     ],
   },
-  { path: '/sign_in', component: SignInPage },
-  { path: '/statistics', component: StatisticsPage },
-  { path: '/export', component: ComingSoon },
-  { path: '/notify', component: ComingSoon },
+  { path: '/sign_in', component: () => import('../views/SignInPage') },
+  { path: '/statistics', component: () => import('../views/StatisticsPage') },
+  { path: '/export', component: () => import('../shared/ComingSoon') },
+  { path: '/notify', component: () => import('../shared/ComingSoon') },
 ]

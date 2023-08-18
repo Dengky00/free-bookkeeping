@@ -4,16 +4,6 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios'
-import {
-  mockItemCreate,
-  mockItemIndex,
-  mockItemIndexBalance,
-  mockItemSummary,
-  mockSession,
-  mockTagEdit,
-  mockTagIndex,
-  mockTagShow,
-} from '../mock/mock'
 import { closeToast, showLoadingToast } from 'vant'
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
@@ -65,45 +55,74 @@ export class HttpClient {
   }
 }
 
-const mock = (response: AxiosResponse) => {
-  if (
-    true ||
-    (location.hostname !== 'localhost' && //如果不是本地服务器就不使用mock
-      location.hostname !== '127.0.0.1' &&
-      location.hostname !== '192.168.3.57')
-  ) {
-    return false
-  }
-  switch (response.config?._mock) {
-    case 'session':
-      ;[response.status, response.data] = mockSession(response.config)
-      return true
-    case 'tagShow':
-      ;[response.status, response.data] = mockTagShow(response.config)
-      return true
-    case 'tagEdit':
-      ;[response.status, response.data] = mockTagEdit(response.config)
-      return true
-    case 'tagIndex':
-      ;[response.status, response.data] = mockTagIndex(response.config)
-      return true
-    case 'itemCreate':
-      ;[response.status, response.data] = mockItemCreate(response.config)
-      return true
-    case 'itemIndex':
-      ;[response.status, response.data] = mockItemIndex(response.config)
-      return true
-    case 'itemIndexBalance':
-      ;[response.status, response.data] = mockItemIndexBalance(response.config)
-      return true
-    case 'itemSummary':
-      ;[response.status, response.data] = mockItemSummary(response.config)
-      return true
-  }
-  return false
-}
+export const httpClient = new HttpClient(
+  DEBUG ? 'api/v1' : 'http://121.196.236.94:3000/api/v1',
+) //封装连接的服务器
 
-export const httpClient = new HttpClient('/api/v1') //封装连接的服务器
+//只有开发状态mock代码才生效,所以不会在生产环境下被打包
+if (DEBUG) {
+  import('../mock/mock').then(
+    ({
+      mockItemCreate,
+      mockItemIndex,
+      mockItemIndexBalance,
+      mockItemSummary,
+      mockSession,
+      mockTagEdit,
+      mockTagIndex,
+      mockTagShow,
+    }) => {
+      const mock = (response: AxiosResponse) => {
+        switch (response.config?._mock) {
+          case 'session':
+            ;[response.status, response.data] = mockSession(response.config)
+            return true
+          case 'tagShow':
+            ;[response.status, response.data] = mockTagShow(response.config)
+            return true
+          case 'tagEdit':
+            ;[response.status, response.data] = mockTagEdit(response.config)
+            return true
+          case 'tagIndex':
+            ;[response.status, response.data] = mockTagIndex(response.config)
+            return true
+          case 'itemCreate':
+            ;[response.status, response.data] = mockItemCreate(response.config)
+            return true
+          case 'itemIndex':
+            ;[response.status, response.data] = mockItemIndex(response.config)
+            return true
+          case 'itemIndexBalance':
+            ;[response.status, response.data] = mockItemIndexBalance(response.config)
+            return true
+          case 'itemSummary':
+            ;[response.status, response.data] = mockItemSummary(response.config)
+            return true
+        }
+        return false
+      }
+      //响应拦截,判断是否返回模拟数据
+      httpClient.instance.interceptors.response.use(
+        (response) => {
+          mock(response)
+          if (response.status >= 400) {
+            throw { response }
+          } else {
+            return response
+          }
+        },
+        (error) => {
+          mock(error.response)
+          if (error.response.status >= 400) {
+            throw error
+          } else {
+            return error.response
+          }
+        },
+      )
+    },
+  )
+}
 
 //请求拦截,每条请求带上本地存储的jwt,标志是否登录
 httpClient.instance.interceptors.request.use((config) => {
@@ -122,7 +141,8 @@ httpClient.instance.interceptors.request.use((config) => {
   }
   return config
 })
-//服务器响应结束关闭加载动画
+
+//请求服务器数据响应结束关闭加载动画
 httpClient.instance.interceptors.response.use(
   (response) => {
     if (response.config._autoLoading === true) {
@@ -135,25 +155,6 @@ httpClient.instance.interceptors.response.use(
       closeToast()
     }
     throw error
-  },
-)
-//响应拦截,判断是否返回模拟数据
-httpClient.instance.interceptors.response.use(
-  (response) => {
-    mock(response)
-    if (response.status >= 400) {
-      throw { response }
-    } else {
-      return response
-    }
-  },
-  (error) => {
-    mock(error.response)
-    if (error.response.status >= 400) {
-      throw error
-    } else {
-      return error.response
-    }
   },
 )
 

@@ -1,4 +1,4 @@
-//节流
+//节流,可设置滑动事件触发间隔
 export const throttle = (fn: Function, time: number) => {
   let timer: number | undefined = undefined
   return (...args: any[]) => {

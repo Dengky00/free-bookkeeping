@@ -137,6 +137,7 @@ export const mockItemIndex: Mock = (config) => {
     return [200, {}]
   }
 }
+
 //模拟收支平衡总情况
 export const mockItemIndexBalance: Mock = (config) => {
   return [
@@ -148,6 +149,7 @@ export const mockItemIndexBalance: Mock = (config) => {
     },
   ]
 }
+
 //模拟记账记录的详细图表数据
 export const mockItemSummary: Mock = (config) => {
   const { group_by, kind } = config.params

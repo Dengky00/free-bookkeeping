@@ -5,7 +5,7 @@ declare module '*.vue' {
   const vueComponent: DefineComponent<{}, {}, any>
   export default vueComponent
 }
-declare let DEBUG: boolean 
+declare let DEBUG: boolean
 
 type JSONValue =
   | null

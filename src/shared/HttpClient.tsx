@@ -55,9 +55,10 @@ export class HttpClient {
   }
 }
 
+//封装连接的服务器
 export const httpClient = new HttpClient(
   DEBUG ? 'api/v1' : 'http://121.196.236.94:3000/api/v1',
-) //封装连接的服务器
+)
 
 //只有开发状态mock代码才生效,所以不会在生产环境下被打包
 if (DEBUG) {

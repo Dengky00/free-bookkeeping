@@ -22,7 +22,6 @@ export const SignInPage = defineComponent({
     const router = useRouter()
     const route = useRoute()
     const refValidationCode = ref<any>()
-    // const refValidationCodeDisabled = ref(false)
     const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
     const formData = reactive({
       email: '',
@@ -49,16 +48,10 @@ export const SignInPage = defineComponent({
       if (!hasError(errors)) {
         //不存在验证错误即可登录
         const response = await httpClient
-          .post<{ jwt: string }>(
-            '/session',
-            formData,
-            // {params: { _mock: 'session' }}
-          )
+          .post<{ jwt: string }>('/session', formData)
           .catch(onError)
         localStorage.setItem('jwt', response.data.jwt)
-        // router.push('/sign_in?return_to=' + encodeURIComponent(route.fullPath))//在登录页面的查询参数中带上返回路径
         const returnTo = route.query.return_to?.toString()
-        // const returnTo = localStorage.getItem('returnTo')//从localStorage读取登录后要返回的地址
         meStore.refreshMe()
         router.push(returnTo || '/')
       }
@@ -72,7 +65,6 @@ export const SignInPage = defineComponent({
     const onClickSendValidationCode = async () => {
       //点击发送验证码
       disabled() //在完成网络请求回应之前无法点击
-      // refValidationCodeDisabled.value = true
       await httpClient
         .post(
           '/validation_codes',
@@ -83,7 +75,6 @@ export const SignInPage = defineComponent({
         )
         .catch(onError)
         .finally(enable)
-      //成功
       refValidationCode.value.startCount()
     }
     return () => (

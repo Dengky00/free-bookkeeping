@@ -53,7 +53,7 @@ export const Charts = defineComponent({
       data1.value = response.data.groups.reverse()
     }
     onMounted(fetchData1)
-    watch(() => kind.value, fetchData1)
+
     //data2饼图和条形图数据
     const data2 = ref<Data2>([])
     const betterData2 = computed<{ name: string; value: number }[]>(() =>
@@ -85,7 +85,14 @@ export const Charts = defineComponent({
       data2.value = response.data.groups
     }
     onMounted(fetchData2)
-    watch(() => kind.value, fetchData2)
+
+    watch(
+      () => [kind.value, props.startDate, props.endDate],
+      () => {
+        fetchData1()
+        fetchData2()
+      },
+    )
 
     return () => (
       <div class={style.wrapper}>

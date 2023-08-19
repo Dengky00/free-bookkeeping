@@ -24,7 +24,9 @@ export const OverLay = defineComponent({
       if (route.path === '/items') {
         window.location.reload()
       } else {
-        router.push('/')
+        //等待路由跳转回首页再执行刷新
+        await router.push('/items')
+        window.location.reload()
       }
     }
     return () => (

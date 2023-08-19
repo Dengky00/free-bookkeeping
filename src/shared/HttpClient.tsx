@@ -61,7 +61,7 @@ export const httpClient = new HttpClient(
 )
 
 //只有开发状态mock代码才生效,所以不会在生产环境下被打包
-if (DEBUG) {
+if (false && DEBUG) {
   import('../mock/mock').then(
     ({
       mockItemCreate,

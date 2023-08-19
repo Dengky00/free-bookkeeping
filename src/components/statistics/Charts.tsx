@@ -6,6 +6,7 @@ import { PieChart } from './PieChart'
 import { Bars } from './Bars'
 import { httpClient } from '../../shared/HttpClient'
 import duration from 'dayjs/plugin/duration'
+import { useSeletedStore } from '../../stores/useSelectedStore'
 dayjs.extend(duration) //dayjs引入计算时长插件
 
 type Data1Item = { happen_at: string; amount: number }
@@ -24,11 +25,11 @@ export const Charts = defineComponent({
     },
   },
   setup: (props, context) => {
-    const kind = ref('expenses')
+    const selectedStore = useSeletedStore()
     //data1折线图数据
     const data1 = ref<Data1>([])
     const betterData1 = computed<[string, number][]>(() => {
-      const duration = dayjs.duration(props.endDate.diff(props.startDate)).asDays() //时间区间天数
+      const duration = dayjs.duration(props.endDate.diff(props.startDate)).asDays() + 1 //时间区间天数
       return Array.from({ length: duration }).map((_, i) => {
         const time = props.startDate.add(i, 'day').format('YYYY-MM-DD')
         const item = data1.value[0]
@@ -42,7 +43,7 @@ export const Charts = defineComponent({
         {
           happen_after: props.startDate.format('YYYY-MM-DD'),
           happen_before: props.endDate.format('YYYY-MM-DD'),
-          kind: kind.value,
+          kind: selectedStore.kind,
           group_by: 'happen_at',
         },
         {
@@ -75,7 +76,7 @@ export const Charts = defineComponent({
         {
           happen_after: props.startDate.format('YYYY-MM-DD'),
           happen_before: props.endDate.format('YYYY-MM-DD'),
-          kind: kind.value,
+          kind: selectedStore.kind,
           group_by: 'tag_id',
         },
         {
@@ -87,7 +88,7 @@ export const Charts = defineComponent({
     onMounted(fetchData2)
 
     watch(
-      () => [kind.value, props.startDate, props.endDate],
+      () => [selectedStore.kind, props.startDate, props.endDate],
       () => {
         fetchData1()
         fetchData2()
@@ -99,8 +100,10 @@ export const Charts = defineComponent({
         <div class={style.select}>
           <span>类型</span>
           <select
-            v-model={kind.value}
-            style={kind.value === 'expenses' ? { color: 'green' } : { color: 'red' }}
+            v-model={selectedStore.kind}
+            style={
+              selectedStore.kind === 'expenses' ? { color: 'green' } : { color: 'red' }
+            }
           >
             <option value="expenses" style={{ color: 'green' }}>
               支出

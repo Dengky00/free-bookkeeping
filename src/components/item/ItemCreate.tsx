@@ -16,7 +16,7 @@ export const ItemCreate = defineComponent({
     const selectedStore = useSeletedStore()
     //formDate类型是部分Item类型
     const formData = reactive<Partial<Item>>({
-      kind: 'expenses',
+      kind: selectedStore.kind,
       tag_ids: [],
       amount: 0,
       happen_at: '',
@@ -56,7 +56,7 @@ export const ItemCreate = defineComponent({
           default: () => (
             <>
               <div class={style.wrapper}>
-                <Tabs v-model:selected={formData.kind} class={style.tabs}>
+                <Tabs v-model:selected={selectedStore.kind} class={style.tabs}>
                   <Tab value="expenses" name="支出">
                     <Tags kind="expenses" v-model:selected={formData.tag_ids![0]} />
                   </Tab>

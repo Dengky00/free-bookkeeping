@@ -4,14 +4,21 @@ type SelectedStore = {
   kind: 'expenses' | 'income'
   overlay: String
 }
-export const useSeletedStore = defineStore<string, SelectedStore>('selected', {
-  state: () => ({ kind: 'expenses', overlay: '记账' }),
-  actions: {
-    changeKind(kind: 'expenses' | 'income') {
-      this.kind = kind
-    },
-    changeOverLay(overlay: string) {
-      this.overlay = overlay
+type SelectedActions = {
+  changeKind: (kind: 'expenses' | 'income') => void
+  changeOverLay: (overlay: string) => void
+}
+export const useSeletedStore = defineStore<string, SelectedStore, {}, SelectedActions>(
+  'selected',
+  {
+    state: () => ({ kind: 'expenses', overlay: '记账' }),
+    actions: {
+      changeKind(kind) {
+        this.kind = kind
+      },
+      changeOverLay(overlay) {
+        this.overlay = overlay
+      },
     },
   },
-})
+)

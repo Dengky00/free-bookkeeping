@@ -44,6 +44,10 @@
       margin-right: 12px;
     }
   }
+  .selected {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
+  }
 }
 
 .enterFrom,

@@ -9,9 +9,11 @@ import { useRouter } from 'vue-router'
 import { showDialog } from 'vant'
 import { AxiosError } from 'axios'
 import { BackIcon } from '../../shared/BackIcon'
+import { useSeletedStore } from '../../stores/useSelectedStore'
 
 export const ItemCreate = defineComponent({
   setup: (props, context) => {
+    const selectedStore = useSeletedStore()
     //formDate类型是部分Item类型
     const formData = reactive<Partial<Item>>({
       kind: 'expenses',

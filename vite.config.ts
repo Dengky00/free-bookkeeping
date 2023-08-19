@@ -6,7 +6,7 @@ import { svgstore } from './src/vite_plugins/svgstore'
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   return {
-    // base: '/free-bookkeeping-1/dist/',
+    base: '/free-bookkeeping/dist/',
 
     //用于判断生产环境和开发环境的变量,决定是否生效mock代码和切换后端接口
     define: command === 'build' ? { DEBUG: false } : { DEBUG: true },
